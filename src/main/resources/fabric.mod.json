@@ -1,0 +1,45 @@
+{
+	"schemaVersion": 1,
+	"id": "${modId}",
+	"version": "${version}",
+	"name": "${modName}",
+	"description": "${modDescription}",
+	"authors": [
+		"${authors}"
+	],
+	"contributors": [
+		"${contributors}"
+	],
+	"contact": {
+		"homepage": "${homepage}",
+		"issues": "${issues}",
+		"sources": "${sources}"
+	},
+	"license": "${license}",
+	"icon": "assets/${modId}/icon.png",
+	"mixins": [
+		"${modId}.mixins.json",
+		{
+			"config": "${modId}.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"minecraft": ">=${minecraftVersion}",
+		"fabricloader": ">=${fabricLoaderVersion}",
+		"fabric-api": ">=${fabricApiVersion}"
+	},
+	"suggests": {
+	},
+	"entrypoints": {
+		"main": [
+			"ink.quietly.elementary_archery.ElementaryArchery"
+		],
+		"client": [
+			"ink.quietly.elementary_archery.client.ElementaryArcheryClient"
+		],
+		"fabric-datagen": [
+			"ink.quietly.elementary_archery.client.ElementaryArcheryDataGenerator"
+		]
+	}
+}
