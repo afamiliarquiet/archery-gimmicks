@@ -1,6 +1,7 @@
 package ink.quietly.elementary_archery.basics;
 
 import ink.quietly.elementary_archery.ElementaryArchery;
+import ink.quietly.elementary_archery.entity.BiggerArrow;
 import ink.quietly.elementary_archery.entity.HeavyArrow;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -16,6 +17,14 @@ public class Bestiary {
 		.sized(0.5F, 0.5F)
 		.eyeHeight(0.13F)
 		.clientTrackingRange(4)
+		.updateInterval(20)
+	);
+
+	public static final EntityType<BiggerArrow> BIGGER_ARROW = note("bigger_arrow", EntityType.Builder.<BiggerArrow>of(BiggerArrow::new, MobCategory.MISC)
+		.noLootTable()
+		.sized(16f, 16f)
+		.eyeHeight(0f)
+		.clientTrackingRange(32)
 		.updateInterval(20)
 	);
 

@@ -1,15 +1,16 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "ink.quietly.elementary_archery.mixin",
-  "compatibilityLevel": "JAVA_25",
-  "mixins": [
-  ],
-  "client": [
-  ],
-  "server": [
-  ],
-  "injectors": {
-    "defaultRequire": 1
+	"required": true,
+	"minVersion": "0.8",
+	"package": "ink.quietly.elementary_archery.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"AbstractArrowAccessor"
+	],
+	"client": [
+	],
+	"server": [
+	],
+	"injectors": {
+		"defaultRequire": 1
 	}
 }
