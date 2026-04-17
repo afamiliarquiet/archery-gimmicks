@@ -1,4 +1,7 @@
 {
+	"item.elementary_archery.light_bow": "Light Bow",
+	"item.elementary_archery.heavy_bow": "Heavy Bow",
+
 	"item.elementary_archery.heavy_arrow": "Heavy Arrow",
 	"entity.elementary_archery.heavy_arrow": "Heavy Arrow",
 
