@@ -5,6 +5,7 @@ import ink.quietly.elementary_archery.basics.ItemBag;
 import ink.quietly.elementary_archery.network.S2CFlingPayload;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -47,14 +48,16 @@ public class HeavyArrow extends AbstractArrow {
 		if (this.getOwner() != null) {
 			Entity owner = this.getOwner();
 
-			float ownerMassFactor = 1.1f / Math.max(owner.getBbWidth(), owner.getBbHeight());
-			Vec3 fling = new Vec3(xd, yd, zd).reverse().normalize().scale(power * ownerMassFactor);
+			// my evil convoluted mass numifier
+			float ownerMassFactor = 1.3f / (0.31f + Math.clamp(Math.max(owner.getBbWidth(), owner.getBbHeight()), 0.25f, 4f));
+			float adjustedPower = power * ownerMassFactor;
+			Vec3 fling = new Vec3(xd, yd, zd).reverse().normalize().scale(adjustedPower);
 
 			if (owner instanceof ServerPlayer player) {
-				if (player.isFallFlying()) {
+				if (player.isFallFlying() && adjustedPower > 1) {
 					// without this it's kinda silly how easily you can fly with heavy arrows
 					// like this, it feels.. reasonably viable and fun
-					fling = fling.scale(0.5);
+					fling = fling.scale(1 / Mth.sqrt(adjustedPower));
 				}
 				ServerPlayNetworking.send(player, new S2CFlingPayload(fling));
 			}
