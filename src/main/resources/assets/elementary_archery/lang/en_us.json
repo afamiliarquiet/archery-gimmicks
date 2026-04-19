@@ -4,6 +4,7 @@
 
 	"item.elementary_archery.heavy_arrow": "Heavy Arrow",
 	"entity.elementary_archery.heavy_arrow": "Heavy Arrow",
-
+	"item.elementary_archery.signal_arrow": "Signal Arrow",
+	"entity.elementary_archery.signal_arrow": "Signal Arrow",
 	"entity.elementary_archery.bigger_arrow": "Bigger Arrow"
 }

@@ -3,6 +3,7 @@ package ink.quietly.elementary_archery.basics;
 import ink.quietly.elementary_archery.ElementaryArchery;
 import ink.quietly.elementary_archery.entity.BiggerArrow;
 import ink.quietly.elementary_archery.entity.HeavyArrow;
+import ink.quietly.elementary_archery.entity.SignalArrow;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -17,6 +18,14 @@ public class Bestiary {
 		.sized(0.5F, 0.5F)
 		.eyeHeight(0.13F)
 		.clientTrackingRange(4)
+		.updateInterval(20)
+	);
+
+	public static final EntityType<SignalArrow> SIGNAL_ARROW = note("signal_arrow", EntityType.Builder.<SignalArrow>of(SignalArrow::new, MobCategory.MISC)
+		.noLootTable()
+		.sized(0.5F, 0.5F)
+		.eyeHeight(0.13F)
+		.clientTrackingRange(32)
 		.updateInterval(20)
 	);
 

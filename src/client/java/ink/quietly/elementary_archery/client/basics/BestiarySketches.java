@@ -5,6 +5,7 @@ import ink.quietly.elementary_archery.basics.Bestiary;
 import ink.quietly.elementary_archery.client.entity.BiggerArrowModel;
 import ink.quietly.elementary_archery.client.entity.BiggerArrowRenderer;
 import ink.quietly.elementary_archery.client.entity.HeavyArrowRenderer;
+import ink.quietly.elementary_archery.client.entity.SignalArrowRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -14,6 +15,7 @@ public class BestiarySketches {
 
 	public static void fill() {
 		EntityRenderers.register(Bestiary.HEAVY_ARROW, HeavyArrowRenderer::new);
+		EntityRenderers.register(Bestiary.SIGNAL_ARROW, SignalArrowRenderer::new);
 		EntityRenderers.register(Bestiary.BIGGER_ARROW, BiggerArrowRenderer::new);
 
 		ModelLayerRegistry.registerModelLayer(BIGGER_ARROW, BiggerArrowModel::createBodyLayer);

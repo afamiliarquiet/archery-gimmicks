@@ -3,6 +3,7 @@ package ink.quietly.elementary_archery;
 import ink.quietly.elementary_archery.basics.Bestiary;
 import ink.quietly.elementary_archery.basics.ItemBag;
 import ink.quietly.elementary_archery.basics.Messenger;
+import ink.quietly.elementary_archery.basics.MoteCatalog;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
@@ -19,6 +20,7 @@ public class ElementaryArchery implements ModInitializer {
 		ItemBag.fill();
 		Bestiary.fill();
 		Messenger.summon();
+		MoteCatalog.peruse();
 		log("Initialized! Artemis smiles upon us today.");
 	}
 

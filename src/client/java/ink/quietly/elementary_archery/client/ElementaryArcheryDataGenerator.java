@@ -35,6 +35,7 @@ public class ElementaryArcheryDataGenerator implements DataGeneratorEntrypoint {
 		@Override
 		public void generateItemModels(ItemModelGenerators g) {
 			g.generateFlatItem(ItemBag.HEAVY_ARROW, ModelTemplates.FLAT_ITEM);
+			g.generateFlatItem(ItemBag.SIGNAL_ARROW, ModelTemplates.FLAT_ITEM);
 			this.generateBow(g, ItemBag.LIGHT_BOW, 0.2f, 0.6f, 1f);
 			this.generateBow(g, ItemBag.HEAVY_BOW, 0.025f, 0.65f, 0.95f);
 

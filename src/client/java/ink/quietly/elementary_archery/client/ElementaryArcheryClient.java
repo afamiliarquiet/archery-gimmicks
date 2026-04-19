@@ -2,6 +2,7 @@ package ink.quietly.elementary_archery.client;
 
 import ink.quietly.elementary_archery.client.basics.BestiarySketches;
 import ink.quietly.elementary_archery.client.basics.MessengersBody;
+import ink.quietly.elementary_archery.client.basics.MotesInABottle;
 import net.fabricmc.api.ClientModInitializer;
 
 public class ElementaryArcheryClient implements ClientModInitializer {
@@ -10,5 +11,6 @@ public class ElementaryArcheryClient implements ClientModInitializer {
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
 		BestiarySketches.fill();
 		MessengersBody.bury();
+		MotesInABottle.shake();
 	}
 }
