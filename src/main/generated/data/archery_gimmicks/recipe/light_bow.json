@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "*": "minecraft:glowstone_dust",
+    "/": "minecraft:stick",
+    "s": "minecraft:string"
+  },
+  "pattern": [
+    " *s",
+    "/ s",
+    " *s"
+  ],
+  "result": {
+    "id": "archery_gimmicks:light_bow"
+  }
+}

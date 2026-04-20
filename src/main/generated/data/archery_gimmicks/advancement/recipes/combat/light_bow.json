@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_bow": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:bow"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_glowstone_dust": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:glowstone_dust"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_light_bow": {
+      "conditions": {
+        "items": [
+          {
+            "items": "archery_gimmicks:light_bow"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "archery_gimmicks:light_bow"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_light_bow",
+      "has_bow",
+      "has_glowstone_dust"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "archery_gimmicks:light_bow"
+    ]
+  }
+}

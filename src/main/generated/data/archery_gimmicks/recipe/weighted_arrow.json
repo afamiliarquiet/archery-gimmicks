@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:feather",
+    ".": "minecraft:iron_nugget",
+    "|": "minecraft:iron_ingot"
+  },
+  "pattern": [
+    ".",
+    "|",
+    "#"
+  ],
+  "result": {
+    "count": 4,
+    "id": "archery_gimmicks:weighted_arrow"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:netherite_scrap",
+    "/": "minecraft:stick",
+    "s": "minecraft:string"
+  },
+  "pattern": [
+    " /s",
+    "# s",
+    " /s"
+  ],
+  "result": {
+    "id": "archery_gimmicks:heavy_bow"
+  }
+}

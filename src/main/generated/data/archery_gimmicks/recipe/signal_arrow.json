@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:feather",
+    "/": "minecraft:stick",
+    "c": "minecraft:coal"
+  },
+  "pattern": [
+    "c",
+    "/",
+    "#"
+  ],
+  "result": {
+    "count": 4,
+    "id": "archery_gimmicks:signal_arrow"
+  }
+}
