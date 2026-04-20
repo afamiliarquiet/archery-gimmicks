@@ -1,0 +1,10 @@
+{
+	"item.archery_gimmicks.light_bow": "Light Bow",
+	"item.archery_gimmicks.heavy_bow": "Heavy Bow",
+
+	"item.archery_gimmicks.weighted_arrow": "Weighted Arrow",
+	"entity.archery_gimmicks.weighted_arrow": "Weighted Arrow",
+	"item.archery_gimmicks.signal_arrow": "Signal Arrow",
+	"entity.archery_gimmicks.signal_arrow": "Signal Arrow",
+	"entity.archery_gimmicks.bigger_arrow": "Bigger Arrow"
+}

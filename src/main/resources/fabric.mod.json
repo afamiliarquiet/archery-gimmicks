@@ -33,13 +33,13 @@
 	},
 	"entrypoints": {
 		"main": [
-			"ink.quietly.elementary_archery.ElementaryArchery"
+			"ink.quietly.archery_gimmicks.ArcheryGimmicks"
 		],
 		"client": [
-			"ink.quietly.elementary_archery.client.ElementaryArcheryClient"
+			"ink.quietly.archery_gimmicks.client.ArcheryGimmicksClient"
 		],
 		"fabric-datagen": [
-			"ink.quietly.elementary_archery.client.ElementaryArcheryDataGenerator"
+			"ink.quietly.archery_gimmicks.client.ArcheryGimmicksDataGenerator"
 		]
 	}
 }

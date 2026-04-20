@@ -7,7 +7,7 @@ a simple archery mod with some elemental arrows and other things
 
 ---
 
-# Elementary Archery
+# Archery Gimmicks
 
 
 adds ..?

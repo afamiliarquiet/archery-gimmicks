@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/bow",
-  "textures": {
-    "layer0": "elementary_archery:item/light_bow_pulling_1"
-  }
-}

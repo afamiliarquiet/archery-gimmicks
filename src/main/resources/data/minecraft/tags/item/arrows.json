@@ -1,7 +1,7 @@
 {
 	"replace": false,
 	"values": [
-		"elementary_archery:heavy_arrow",
-		"elementary_archery:signal_arrow"
+		"archery_gimmicks:weighted_arrow",
+		"archery_gimmicks:signal_arrow"
 	]
 }
