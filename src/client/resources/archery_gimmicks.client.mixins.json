@@ -16,5 +16,6 @@
 		"ArrowRendererAccessor"
 	],
 	"mixinextras": {
-		"minVersion": "0.5.3"}
+		"minVersion": "0.5.3"
+	}
 }

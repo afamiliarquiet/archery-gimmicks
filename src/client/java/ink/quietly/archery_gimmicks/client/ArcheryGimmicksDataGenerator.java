@@ -45,6 +45,7 @@ public class ArcheryGimmicksDataGenerator implements DataGeneratorEntrypoint {
 		public void generateItemModels(ItemModelGenerators g) {
 			g.generateFlatItem(ItemBag.WEIGHTED_ARROW, ModelTemplates.FLAT_ITEM);
 			g.generateFlatItem(ItemBag.SIGNAL_ARROW, ModelTemplates.FLAT_ITEM);
+			g.generateFlatItem(ItemBag.MESSENGER_ARROW, ModelTemplates.FLAT_ITEM);
 			this.generateBow(g, ItemBag.LIGHT_BOW, 0.2f, 0.6f, 1f);
 			this.generateBow(g, ItemBag.HEAVY_BOW, 0.025f, 0.65f, 0.95f);
 
@@ -126,6 +127,17 @@ public class ArcheryGimmicksDataGenerator implements DataGeneratorEntrypoint {
 						.unlockedBy(getHasName(ItemBag.SIGNAL_ARROW), has(ItemBag.SIGNAL_ARROW))
 						.unlockedBy(getHasName(Items.ARROW), has(Items.ARROW))
 						.unlockedBy(getHasName(Items.TORCH), has(Items.TORCH))
+						.save(output);
+					shaped(RecipeCategory.COMBAT, ItemBag.MESSENGER_ARROW, 4)
+						.pattern("b")
+						.pattern("/")
+						.pattern("#")
+						.define('b', Items.BUNDLE) // fight me, torch placing arrow mods
+						.define('/', Items.STICK)
+						.define('#', Items.FEATHER) // you're gonna have to put in a lot of work, little guy. good luck
+						.unlockedBy(getHasName(ItemBag.MESSENGER_ARROW), has(ItemBag.MESSENGER_ARROW))
+						.unlockedBy(getHasName(Items.ARROW), has(Items.ARROW))
+						.unlockedBy(getHasName(Items.BUNDLE), has(Items.BUNDLE))
 						.save(output);
 				}
 			};

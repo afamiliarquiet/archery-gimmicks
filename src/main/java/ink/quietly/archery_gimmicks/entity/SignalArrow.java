@@ -24,7 +24,7 @@ public class SignalArrow extends AbstractArrow implements AlteredArrow {
 	protected short remainingActiveTicks = -1;
 	private boolean rushOrder = false;
 
-	public SignalArrow(EntityType<? extends AbstractArrow> type, Level level) {
+	public SignalArrow(EntityType<? extends SignalArrow> type, Level level) {
 		super(type, level);
 		setBaseDamage(getDefaultBaseDamage());
 	}

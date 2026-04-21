@@ -6,5 +6,7 @@
 	"entity.archery_gimmicks.weighted_arrow": "Weighted Arrow",
 	"item.archery_gimmicks.signal_arrow": "Signal Arrow",
 	"entity.archery_gimmicks.signal_arrow": "Signal Arrow",
+	"item.archery_gimmicks.messenger_arrow": "Messenger Arrow",
+	"entity.archery_gimmicks.messenger_arrow": "Messenger Arrow",
 	"entity.archery_gimmicks.bigger_arrow": "Bigger Arrow"
 }

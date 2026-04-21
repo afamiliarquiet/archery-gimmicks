@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:feather",
+    "/": "minecraft:stick",
+    "b": "minecraft:bundle"
+  },
+  "pattern": [
+    "b",
+    "/",
+    "#"
+  ],
+  "result": {
+    "count": 4,
+    "id": "archery_gimmicks:messenger_arrow"
+  }
+}

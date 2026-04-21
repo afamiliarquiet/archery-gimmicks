@@ -1,5 +1,5 @@
 <!--suppress HtmlDeprecatedTag, XmlDeprecatedElement -->
-<center><img alt="mod preview" src="https://cdn.modrinth.com/data/mhMyROQo/b84a2e074ce738a0084e414012b607aa7e6c8900.png"/></center>
+<center><img alt="mod preview" src="https://cdn.modrinth.com/data/mhMyROQo/images/3dd22f07b78551a16eab6b768f1300d59a69988a.png"/></center>
 
 ---
 
@@ -12,6 +12,8 @@ The gimmick arrows:
   and also serves as a great teaching aid for Newton's Third Law! ("If one thing goes flying, so does the other!")
 - Signal Arrow - Works like a signal flare! Fire it into the air, and once it starts coming down,
   it'll become a bright spot in the sky. Once it starts burning, you won't be able to pick it up again.
+- Messenger Arrow - An arrow with a note attached to it, which can be filled just like a bundle.
+  If it hits an entity, it'll bounce right off! Still hurts, though.
 
 The extras:
 - Light Bow - A variant of the bow that draws four times faster, but only reaches half the power.
