@@ -8,8 +8,9 @@
 Adds a small handful of gimmick arrows, as well as a couple basic bow variants.
 
 The gimmick arrows:
-- Weighted Arrow - A high gravity arrow that launches slightly slower.. 
+- Weighted Arrow - A heavy (high gravity) arrow that launches slightly slower.. 
   and also serves as a great teaching aid for Newton's Third Law! ("If one thing goes flying, so does the other!")
+  Some steady footing (crouching) may help you withstand the forces.
 - Signal Arrow - Works like a signal flare! Fire it into the air, and once it starts coming down,
   it'll become a bright spot in the sky. Once it starts burning, you won't be able to pick it up again.
 - Messenger Arrow - An arrow with a note attached to it, which can be filled just like a bundle.

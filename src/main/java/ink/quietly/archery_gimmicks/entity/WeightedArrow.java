@@ -50,7 +50,7 @@ public class WeightedArrow extends AbstractArrow {
 
 			// my evil convoluted mass numifier
 			float ownerMassFactor = 1.3f / (0.31f + Math.clamp(Math.max(owner.getBbWidth(), owner.getBbHeight()), 0.25f, 4f));
-			float adjustedPower = power * ownerMassFactor;
+			float adjustedPower = power * ownerMassFactor * (owner.isCrouching() ? 0.25f : 1f);
 			Vec3 fling = new Vec3(xd, yd, zd).reverse().normalize().scale(adjustedPower);
 
 			if (owner instanceof ServerPlayer player) {
