@@ -57,4 +57,9 @@ public class SignalParticle extends SingleQuadParticle {
 			return particle;
 		}
 	}
+
+	@Override
+	protected int getLightCoords(float a) {
+		return 15728880;
+	}
 }
