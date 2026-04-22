@@ -128,13 +128,9 @@ public class ArcheryGimmicksDataGenerator implements DataGeneratorEntrypoint {
 						.unlockedBy(getHasName(Items.ARROW), has(Items.ARROW))
 						.unlockedBy(getHasName(Items.TORCH), has(Items.TORCH))
 						.save(output);
-					shaped(RecipeCategory.COMBAT, ItemBag.MESSENGER_ARROW, 4)
-						.pattern("b")
-						.pattern("/")
-						.pattern("#")
-						.define('b', Items.BUNDLE) // fight me, torch placing arrow mods
-						.define('/', Items.STICK)
-						.define('#', Items.FEATHER) // you're gonna have to put in a lot of work, little guy. good luck
+					shapeless(RecipeCategory.COMBAT, ItemBag.MESSENGER_ARROW, 1)
+						.requires(Items.BUNDLE)
+						.requires(Items.ARROW)
 						.unlockedBy(getHasName(ItemBag.MESSENGER_ARROW), has(ItemBag.MESSENGER_ARROW))
 						.unlockedBy(getHasName(Items.ARROW), has(Items.ARROW))
 						.unlockedBy(getHasName(Items.BUNDLE), has(Items.BUNDLE))
