@@ -1,12 +1,17 @@
 {
 	"item.archery_gimmicks.light_bow": "Light Bow",
+	"lore.archery_gimmicks.light_bow": "A fast-drawing ranged weapon that can be used to shoot nearby targets.",
 	"item.archery_gimmicks.heavy_bow": "Heavy Bow",
+	"lore.archery_gimmicks.heavy_bow": "A slow-drawing ranged weapon that can be used to shoot very far off targets.",
 
 	"item.archery_gimmicks.weighted_arrow": "Weighted Arrow",
+	"lore.archery_gimmicks.weighted_arrow": "An arrow that drops faster and launches the user backwards when shot.",
 	"entity.archery_gimmicks.weighted_arrow": "Weighted Arrow",
 	"item.archery_gimmicks.signal_arrow": "Signal Arrow",
+	"lore.archery_gimmicks.signal_arrow": "An arrow that can be shot into the sky to create a glowing spot.",
 	"entity.archery_gimmicks.signal_arrow": "Signal Arrow",
 	"item.archery_gimmicks.messenger_arrow": "Messenger Arrow",
+	"lore.archery_gimmicks.messenger_arrow": "An arrow that can store items for quick transport when shot.",
 	"entity.archery_gimmicks.messenger_arrow": "Messenger Arrow",
 	"entity.archery_gimmicks.bigger_arrow": "Bigger Arrow"
 }
