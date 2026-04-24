@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/bow",
+  "textures": {
+    "layer0": "archery_gimmicks:item/heavy_bow",
+	"layer1": "archery_gimmicks:item/heavy_bow_overlay"
+  }
+}

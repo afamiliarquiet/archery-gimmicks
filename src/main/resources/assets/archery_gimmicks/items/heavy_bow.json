@@ -1,0 +1,111 @@
+{
+	"model": {
+		"type": "minecraft:condition",
+		"on_false": {
+			"type": "minecraft:condition",
+			"component": "minecraft:dyed_color",
+			"on_false": {
+				"type": "minecraft:model",
+				"model": "archery_gimmicks:item/heavy_bow"
+			},
+			"on_true": {
+				"type": "minecraft:model",
+				"model": "archery_gimmicks:item/heavy_bow_dyed",
+				"tints": [
+					{
+						"type": "minecraft:constant",
+						"value": -1
+					},
+					{
+						"type": "minecraft:dye",
+						"default": -1
+					}
+				]
+			},
+			"property": "minecraft:has_component"
+		},
+		"on_true": {
+			"type": "minecraft:range_dispatch",
+			"entries": [
+				{
+					"model": {
+						"type": "minecraft:condition",
+						"component": "minecraft:dyed_color",
+						"on_false": {
+							"type": "minecraft:model",
+							"model": "archery_gimmicks:item/heavy_bow_pulling_1"
+						},
+						"on_true": {
+							"type": "minecraft:model",
+							"model": "archery_gimmicks:item/heavy_bow_pulling_1_dyed",
+							"tints": [
+								{
+									"type": "minecraft:constant",
+									"value": -1
+								},
+								{
+									"type": "minecraft:dye",
+									"default": -1
+								}
+							]
+						},
+						"property": "minecraft:has_component"
+					},
+					"threshold": 0.65
+				},
+				{
+					"model": {
+						"type": "minecraft:condition",
+						"component": "minecraft:dyed_color",
+						"on_false": {
+							"type": "minecraft:model",
+							"model": "archery_gimmicks:item/heavy_bow_pulling_2"
+						},
+						"on_true": {
+							"type": "minecraft:model",
+							"model": "archery_gimmicks:item/heavy_bow_pulling_2_dyed",
+							"tints": [
+								{
+									"type": "minecraft:constant",
+									"value": -1
+								},
+								{
+									"type": "minecraft:dye",
+									"default": -1
+								}
+							]
+						},
+						"property": "minecraft:has_component"
+					},
+					"threshold": 0.95
+				}
+			],
+			"fallback": {
+				"type": "minecraft:condition",
+				"component": "minecraft:dyed_color",
+				"on_false": {
+					"type": "minecraft:model",
+					"model": "archery_gimmicks:item/heavy_bow_pulling_0"
+				},
+				"on_true": {
+					"type": "minecraft:model",
+					"model": "archery_gimmicks:item/heavy_bow_pulling_0_dyed",
+					"tints": [
+						{
+							"type": "minecraft:constant",
+							"value": -1
+						},
+						{
+							"type": "minecraft:dye",
+							"default": -1
+						}
+					]
+				},
+				"property": "minecraft:has_component"
+			},
+			"property": "minecraft:use_duration",
+			"scale": 0.025
+		},
+		"property": "minecraft:using_item"
+	}
+}

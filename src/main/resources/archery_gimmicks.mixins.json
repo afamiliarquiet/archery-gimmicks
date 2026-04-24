@@ -7,8 +7,10 @@
 		"AbstractArrowAccessor",
 		"AlteredAbstractArrowMixin",
 		"AlteredBowItemMixin",
+		"CauldronInteractionsMixin",
 		"OpenProjectileUtilMixin",
-		"OpenProjectileWeaponItemMixin"
+		"OpenProjectileWeaponItemMixin",
+		"UltimateDoomDestinyCauldronInteractionDispatcherInvokerOfDestinedDoomAndDespairOhhhhhhMyGodIDontWantToMakeThisInvoker"
 	],
 	"client": [
 	],

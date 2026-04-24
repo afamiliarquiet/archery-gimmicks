@@ -25,10 +25,6 @@ loom {
 
 fabricApi {
 	configureDataGeneration {
-		// Contains a boolean indicating whether strict validation is enabled.
-		// Defaults to `false`
-		strictValidation = true
-
 		// Contains a boolean indicating whether data generation will be compiled and run with the client.
 		// Defaults to `false`
 		client = true

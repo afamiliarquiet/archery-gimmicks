@@ -47,8 +47,8 @@ public class ArcheryGimmicksDataGenerator implements DataGeneratorEntrypoint {
 			g.generateFlatItem(ItemBag.SIGNAL_ARROW, ModelTemplates.FLAT_ITEM);
 			g.generateFlatItem(ItemBag.MESSENGER_ARROW, ModelTemplates.FLAT_ITEM);
 			this.generateBow(g, ItemBag.LIGHT_BOW, 0.2f, 0.6f, 1f);
-			this.generateBow(g, ItemBag.HEAVY_BOW, 0.025f, 0.65f, 0.95f);
-
+			// heavy bow is manual now because i don't want to deal with datagen for a dyed bow
+//			this.generateBow(g, ItemBag.HEAVY_BOW, 0.025f, 0.65f, 0.95f);
 		}
 
 		@SuppressWarnings("SameParameterValue") // intellij... give it up. i do it for the love of the game
@@ -135,6 +135,13 @@ public class ArcheryGimmicksDataGenerator implements DataGeneratorEntrypoint {
 						.unlockedBy(getHasName(Items.ARROW), has(Items.ARROW))
 						.unlockedBy(getHasName(Items.BUNDLE), has(Items.BUNDLE))
 						.save(output);
+
+//					CustomCraftingRecipeBuilder.customCrafting(
+//							RecipeCategory.MISC,
+//							(commonInfo, bookInfo) -> new DyeRecipe(commonInfo, bookInfo, Ingredient.of(ItemBag.HEAVY_BOW), this.tag(ItemTags.DYES), new ItemStackTemplate(ItemBag.HEAVY_BOW))
+//						)
+//						.unlockedBy(getHasName(ItemBag.HEAVY_BOW), this.has(ItemBag.HEAVY_BOW))
+//						.save(this.output, getItemName(ItemBag.HEAVY_BOW) + "_dyed");
 				}
 			};
 		}
