@@ -3,6 +3,8 @@ package ink.quietly.archery_gimmicks.entity;
 import ink.quietly.archery_gimmicks.basics.Bestiary;
 import ink.quietly.archery_gimmicks.basics.ItemBag;
 import ink.quietly.archery_gimmicks.basics.MoteCatalog;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -18,27 +20,38 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class SignalArrow extends AbstractArrow implements AlteredArrow {
+	public static final int DEFAULT_COLOR = -855683840;
 	private static final EntityDataAccessor<Boolean> SIGNAL_ACTIVE = SynchedEntityData.defineId(SignalArrow.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(SignalArrow.class, EntityDataSerializers.INT);
 	/// remains true even after signal is no longer active. only burns once
 	protected boolean signalStarted = false;
 	protected short remainingActiveTicks = -1;
-	private boolean rushOrder = false;
+	private boolean rushOrder = false; // not serialized. doesn't really matter
 
 	public SignalArrow(EntityType<? extends SignalArrow> type, Level level) {
 		super(type, level);
-		setBaseDamage(getDefaultBaseDamage());
+		postConstruction();
 	}
 
 	public SignalArrow(final Level level, final LivingEntity owner, final ItemStack pickupItemStack, @Nullable final ItemStack firedFromWeapon) {
 		super(Bestiary.SIGNAL_ARROW, owner, level, pickupItemStack, firedFromWeapon);
-		setBaseDamage(getDefaultBaseDamage());
+		postConstruction();
 	}
 
 	public SignalArrow(
 		final Level level, final double x, final double y, final double z, final ItemStack pickupItemStack, @Nullable final ItemStack firedFromWeapon
 	) {
 		super(Bestiary.SIGNAL_ARROW, x, y, z, level, pickupItemStack, firedFromWeapon);
+		postConstruction();
+	}
+
+	void postConstruction() {
 		setBaseDamage(getDefaultBaseDamage());
+		var dye = this.getPickupItem().get(DataComponents.DYED_COLOR);
+		if (dye != null) {
+//			ArcheryGimmicks.log("found a dye. looks like.. " + (dye.rgb() | 0xcc000000));
+			setColor(dye.rgb() | 0xcc000000);
+		}
 	}
 
 	@Override
@@ -72,7 +85,7 @@ public class SignalArrow extends AbstractArrow implements AlteredArrow {
 			// if these become dyed in the future, then maybe initial light could be a different color so it feels ~intentional~
 			if (isSignalActive() && (tickCount % 20 == 0 || rushOrder && this.getDeltaMovement().lengthSqr() < (getGravity() * getGravity() * 1.6f))) {
 				Vec3 move = this.getDeltaMovement();
-				level().addAlwaysVisibleParticle(MoteCatalog.SIGNAL_PARTICLE, true, getX(), getY() - 0.125, getZ(), move.x, move.y, move.z);
+				level().addAlwaysVisibleParticle(ColorParticleOption.create(MoteCatalog.SIGNAL_PARTICLE, getColor()), true, getX(), getY() - 0.125, getZ(), move.x, move.y, move.z);
 				rushOrder = false;
 			}
 		}
@@ -110,10 +123,19 @@ public class SignalArrow extends AbstractArrow implements AlteredArrow {
 		entityData.set(SIGNAL_ACTIVE, active);
 	}
 
+	public int getColor() {
+		return entityData.get(COLOR);
+	}
+
+	protected void setColor(int color) {
+		entityData.set(COLOR, color);
+	}
+
 	@Override
 	protected void defineSynchedData(SynchedEntityData.@NonNull Builder builder) {
 		super.defineSynchedData(builder);
 		builder.define(SIGNAL_ACTIVE, false);
+		builder.define(COLOR, DEFAULT_COLOR);
 	}
 
 	@Override
@@ -121,6 +143,7 @@ public class SignalArrow extends AbstractArrow implements AlteredArrow {
 		super.addAdditionalSaveData(output);
 		output.putBoolean("signalStarted", signalStarted);
 		output.putShort("remainingSignalTicks", remainingActiveTicks); // ohhh.. that's what the s data type is in entity data
+		output.putInt("signalColor", getColor());
 	}
 
 	@Override
@@ -129,5 +152,6 @@ public class SignalArrow extends AbstractArrow implements AlteredArrow {
 		signalStarted = input.getBooleanOr("signalStarted", false); // Careful! Dynamo has Refresher!!!!
 		remainingActiveTicks = (short) input.getShortOr("remainingSignalTicks", (short) -1); // it's getting cast either way.. why. damned if i int, damned if i short
 		setSignalActive(signalStarted && remainingActiveTicks > 0);
+		setColor(input.getIntOr("signalColor", DEFAULT_COLOR));
 	}
 }

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_dye",
+  "category": "misc",
+  "dye": "#minecraft:dyes",
+  "result": {
+    "id": "archery_gimmicks:signal_arrow"
+  },
+  "target": "archery_gimmicks:signal_arrow"
+}

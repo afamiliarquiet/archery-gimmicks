@@ -44,7 +44,8 @@ public class ArcheryGimmicksDataGenerator implements DataGeneratorEntrypoint {
 		@Override
 		public void generateItemModels(ItemModelGenerators g) {
 			g.generateFlatItem(ItemBag.WEIGHTED_ARROW, ModelTemplates.FLAT_ITEM);
-			g.generateFlatItem(ItemBag.SIGNAL_ARROW, ModelTemplates.FLAT_ITEM);
+//			g.generateFlatItem(ItemBag.SIGNAL_ARROW, ModelTemplates.FLAT_ITEM);
+			g.generateTwoLayerDyedItem(ItemBag.SIGNAL_ARROW);
 			g.generateFlatItem(ItemBag.MESSENGER_ARROW, ModelTemplates.FLAT_ITEM);
 			this.generateBow(g, ItemBag.LIGHT_BOW, 0.2f, 0.6f, 1f);
 			// heavy bow is manual now because i don't want to deal with datagen for a dyed bow

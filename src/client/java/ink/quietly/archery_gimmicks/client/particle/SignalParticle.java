@@ -2,10 +2,13 @@ package ink.quietly.archery_gimmicks.client.particle;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.SingleQuadParticle;
+import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.state.level.QuadParticleRenderState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import org.jspecify.annotations.NonNull;
@@ -42,7 +45,7 @@ public class SignalParticle extends SingleQuadParticle {
 //		return Mth.sin((this.age + a) * 0.6F * (float) Math.PI) + Mth.sin((this.age + a) * 0.6F * (float) Math.PI) + 6;
 	}
 
-	public static class Provider implements ParticleProvider<SimpleParticleType> {
+	public static class Provider implements ParticleProvider<ColorParticleOption> {
 		private final SpriteSet spriteSet;
 
 		public Provider(SpriteSet spriteSet) {
@@ -50,10 +53,10 @@ public class SignalParticle extends SingleQuadParticle {
 		}
 
 		@Override
-		public @Nullable Particle createParticle(SimpleParticleType options, @NonNull ClientLevel level, double x, double y, double z, double xAux, double yAux, double zAux, @NonNull RandomSource random) {
+		public @Nullable Particle createParticle(ColorParticleOption options, @NonNull ClientLevel level, double x, double y, double z, double xAux, double yAux, double zAux, @NonNull RandomSource random) {
 			SignalParticle particle = new SignalParticle(level, x, y, z, xAux, yAux, zAux, this.spriteSet.get(random));
-			particle.setColor(1f, 0.3f, 0f);
-			particle.setAlpha(0.8f);
+			particle.setColor(options.getRed(), options.getGreen(), options.getBlue());
+			particle.setAlpha(options.getAlpha());
 			return particle;
 		}
 	}

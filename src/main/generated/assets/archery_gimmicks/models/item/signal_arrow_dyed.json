@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "archery_gimmicks:item/signal_arrow",
+    "layer1": "archery_gimmicks:item/signal_arrow_overlay"
+  }
+}

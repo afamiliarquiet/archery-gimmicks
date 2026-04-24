@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_signal_arrow": {
+      "conditions": {
+        "items": [
+          {
+            "items": "archery_gimmicks:signal_arrow"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "archery_gimmicks:signal_arrow_dyed"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_signal_arrow"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "archery_gimmicks:signal_arrow_dyed"
+    ]
+  }
+}
