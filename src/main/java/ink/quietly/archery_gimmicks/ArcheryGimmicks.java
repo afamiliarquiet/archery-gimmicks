@@ -1,9 +1,6 @@
 package ink.quietly.archery_gimmicks;
 
-import ink.quietly.archery_gimmicks.basics.Bestiary;
-import ink.quietly.archery_gimmicks.basics.ItemBag;
-import ink.quietly.archery_gimmicks.basics.Messenger;
-import ink.quietly.archery_gimmicks.basics.MoteCatalog;
+import ink.quietly.archery_gimmicks.basics.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
@@ -21,6 +18,7 @@ public class ArcheryGimmicks implements ModInitializer {
 		Bestiary.fill();
 		Messenger.summon();
 		MoteCatalog.peruse();
+		Spellbook.fill();
 		log("Initialized! Artemis smiles upon us today.");
 	}
 

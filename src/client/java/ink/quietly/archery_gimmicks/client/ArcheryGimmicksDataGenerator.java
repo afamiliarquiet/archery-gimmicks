@@ -1,10 +1,12 @@
 package ink.quietly.archery_gimmicks.client;
 
 import ink.quietly.archery_gimmicks.basics.ItemBag;
+import ink.quietly.archery_gimmicks.basics.Spellbook;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -13,11 +15,21 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.properties.numeric.UseDuration;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.LevelBasedValue;
+import net.minecraft.world.item.enchantment.effects.AddValue;
 import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -28,6 +40,12 @@ public class ArcheryGimmicksDataGenerator implements DataGeneratorEntrypoint {
 		var pack = fabricDataGenerator.createPack();
 		pack.addProvider(GimmickModelProvider::new);
 		pack.addProvider(GimmickRecipeProvider::new);
+		pack.addProvider(GimmickEnchantmentProvider::new);
+	}
+
+	@Override
+	public void buildRegistry(RegistrySetBuilder registryBuilder) {
+		registryBuilder.add(Registries.ENCHANTMENT, GimmickEnchantmentProvider::bootstrap);
 	}
 
 	public static class GimmickModelProvider extends FabricModelProvider {
@@ -150,6 +168,43 @@ public class ArcheryGimmicksDataGenerator implements DataGeneratorEntrypoint {
 		@Override
 		public @NonNull String getName() {
 			return "Recipe Definitions";
+		}
+	}
+
+	public static class GimmickEnchantmentProvider extends FabricDynamicRegistryProvider {
+
+		public GimmickEnchantmentProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+			super(output, registriesFuture);
+		}
+
+		@Override
+		protected void configure(HolderLookup.@NonNull Provider registries, @NonNull Entries entries) {
+			entries.addAll(registries.lookupOrThrow(Registries.ENCHANTMENT));
+		}
+
+		public static void bootstrap(BootstrapContext<Enchantment> context) {
+			var enchantments = context.lookup(Registries.ENCHANTMENT);
+			var items = context.lookup(Registries.ITEM);
+			register(
+				context,
+				Spellbook.QUICKSTEP,
+				Enchantment.enchantment(
+						Enchantment.definition(
+							items.getOrThrow(ItemTags.BOW_ENCHANTABLE), 1, 3, Enchantment.dynamicCost(17, 7), Enchantment.constantCost(50), 8, EquipmentSlotGroup.HAND
+						)
+					)
+					.exclusiveWith(enchantments.getOrThrow(EnchantmentTags.BOW_EXCLUSIVE))
+					.withSpecialEffect(Spellbook.QUICKSTEP_POWER, new AddValue(LevelBasedValue.perLevel(4F, 3F)))
+			);
+		}
+
+		private static void register(BootstrapContext<Enchantment> context, ResourceKey<Enchantment> key, Enchantment.Builder builder) {
+			context.register(key, builder.build(key.identifier()));
+		}
+
+		@Override
+		public @NonNull String getName() {
+			return "Enchantment Definitions";
 		}
 	}
 }
