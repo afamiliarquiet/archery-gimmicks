@@ -1,0 +1,31 @@
+{
+	"entity.player.quickstep": {
+		"sounds": [
+			{
+				"name": "minecraft:mob/phantom/flap1",
+				"volume": 0.9
+			},
+			{
+				"name": "minecraft:mob/phantom/flap2",
+				"volume": 0.9
+			},
+			{
+				"name": "minecraft:mob/phantom/flap3",
+				"volume": 0.9
+			},
+			{
+				"name": "minecraft:mob/phantom/flap4",
+				"volume": 0.9
+			},
+			{
+				"name": "minecraft:mob/phantom/flap5",
+				"volume": 0.9
+			},
+			{
+				"name": "minecraft:mob/phantom/flap6",
+				"volume": 0.9
+			}
+		],
+		"subtitle": "subtitles.archery_gimmicks.entity.player.quickstep"
+	}
+}

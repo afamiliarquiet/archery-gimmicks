@@ -19,6 +19,7 @@ public class ArcheryGimmicks implements ModInitializer {
 		Messenger.summon();
 		MoteCatalog.peruse();
 		Spellbook.fill();
+		Soundscape.listen();
 		log("Initialized! Artemis smiles upon us today.");
 	}
 

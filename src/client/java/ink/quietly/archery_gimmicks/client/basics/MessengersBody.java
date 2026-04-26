@@ -1,9 +1,11 @@
 package ink.quietly.archery_gimmicks.client.basics;
 
 import ink.quietly.archery_gimmicks.basics.MoteCatalog;
+import ink.quietly.archery_gimmicks.basics.Soundscape;
 import ink.quietly.archery_gimmicks.network.S2CFlingPayload;
 import ink.quietly.archery_gimmicks.network.S2CVanishPayload;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
@@ -24,6 +26,7 @@ public class MessengersBody {
 //					double dd = 10.0;
 					player.level().addParticle(MoteCatalog.QUICKSTEP_TRACE, player.getRandomX(0.5)/* - xa * dd*/, player.getRandomY()/* - ya * dd*/, player.getRandomZ(0.5) /*- za * dd*/, 0/*xa*/, 0/*ya*/, 0/*za*/);
 				}
+				player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), Soundscape.QUICKSTEP, SoundSource.PLAYERS, 2f, 1.5f, false);
 			}
 		});
 	}

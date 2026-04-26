@@ -16,5 +16,6 @@
 	"entity.archery_gimmicks.bigger_arrow": "Bigger Arrow",
 
 	"enchantment.archery_gimmicks.quickstep": "Quickstep",
-	"enchantment.archery_gimmicks.quickstep.description": "An enchantment that allows you to quickly dash backwards when you swing a bow."
+	"enchantment.archery_gimmicks.quickstep.description": "An enchantment that allows you to quickly dash backwards when you swing a bow.",
+	"subtitles.archery_gimmicks.entity.player.quickstep": "Player quicksteps"
 }
