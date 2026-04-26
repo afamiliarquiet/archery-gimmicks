@@ -7,10 +7,12 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -74,6 +76,17 @@ public class Spellbook {
 		// we'll see if it needs to be tuned later.
 		BlockHitResult clipResult = target.level().clip(new ClipContext(target.position().add(0, target.getEyeHeight(), 0), desiredLocation.add(0, target.getEyeHeight(), 0), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, CollisionContext.empty()));
 		desiredLocation = clipResult.getLocation()/*.add(0, -target.getEyeHeight(), 0)*/;
+
+		// overcomplicating things for fun
+		WorldBorder border = target.level().getWorldBorder();
+		boolean slip = !border.isWithinBounds(desiredLocation.x, desiredLocation.z, target.getBbWidth());
+		if (slip) {
+			// really silly. this is completely unnecessary
+			Vec3 borderLocation = border.clampVec3ToBound(desiredLocation);
+			Vec3 correction = borderLocation.subtract(desiredLocation);
+			Vec3 extraBbCorrection = new Vec3(target.getBbWidth() * Mth.sign(correction.x) / 2, 0, target.getBbWidth() * Mth.sign(correction.z) / 2);
+			desiredLocation = borderLocation.add(extraBbCorrection);
+		}
 
 		// tiny nudge before down check because you are so infinitesimally small that you can get stuck in the side of blocks
 		desiredLocation = desiredLocation.add(target.getLookAngle().scale(0.01));
