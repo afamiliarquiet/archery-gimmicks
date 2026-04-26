@@ -1,6 +1,7 @@
 package ink.quietly.archery_gimmicks.basics;
 
 import ink.quietly.archery_gimmicks.ArcheryGimmicks;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -9,8 +10,11 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.apache.commons.lang3.mutable.MutableFloat;
@@ -50,19 +54,48 @@ public class Spellbook {
 
 	// i expect this to be called on client, so i can take a little more time figuring out where to tp
 	// server will just take a look based on power.
-	// todo - try to prevent going through walls.
 	public static Optional<Vec3> quickstep(Player target) {
 //		float leap = distance.calculate(enchantmentLevel);
 //		float leap = 6f;
 		float leap = getQuickstepPower(target);
 		Vec3 direction = new Vec3(0, 0, -1);
 
-		Vec3 startLocation = target.position()
+		// honestly since this is on client i could probably get away with doing a fan vertically instead of just look angle
+		// then take the one that results on the largest leap. takes a bit of the control away though and sounds annoying
+		// so not gonna do it.
+		Vec3 leapVec = target.getLookAngle().addLocalCoordinates(direction).scale(leap);
+		Vec3 desiredLocation = target.position().add(leapVec);
+
+		// adjust for collision? makes you a teeny little speck from your eyes. this is natural
+		// it's technically possible as a result of being a speck that you can go through walls..
+		// if the walls are shaped just oddly enough to have a hole leading in with a standable space very nearby.
+		// it's fine it's funny enough to let live
+		// besides, client could just modify this jar and choose whatever pos they want.
+		// we'll see if it needs to be tuned later.
+		BlockHitResult clipResult = target.level().clip(new ClipContext(target.position().add(0, target.getEyeHeight(), 0), desiredLocation.add(0, target.getEyeHeight(), 0), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, CollisionContext.empty()));
+		desiredLocation = clipResult.getLocation()/*.add(0, -target.getEyeHeight(), 0)*/;
+
+		// tiny nudge before down check because you are so infinitesimally small that you can get stuck in the side of blocks
+		desiredLocation = desiredLocation.add(target.getLookAngle().scale(0.01));
+		BlockHitResult gravitizer = target.level().clip(new ClipContext(desiredLocation, desiredLocation.relative(Direction.DOWN, leap + target.getEyeHeight()), ClipContext.Block.COLLIDER, ClipContext.Fluid.ANY, CollisionContext.empty()));
+		desiredLocation = gravitizer.getLocation();
+
+		// adjust for findFreePosition wanting a center center... hang on it might want x and z centered too. is that happening?
+		// surely an entity's pos is already centered on xz.
+		desiredLocation = desiredLocation
 			.add(0, target.getBbHeight() / 2, 0);
-		Vec3 desiredLocation = startLocation
-			.add(target.getLookAngle().addLocalCoordinates(direction).scale(leap));
-		VoxelShape tolerance = Shapes.create(AABB.ofSize(desiredLocation, leap / 3, leap / 3, leap / 3));
+
+		// this isn't even really necessary anymore... only because i'm shrinking you into an infinitesimal speck for quickstep
+		VoxelShape tolerance = Shapes.create(AABB.ofSize(desiredLocation, 2*target.getBbWidth(), 2*target.getBbHeight(), 2*target.getBbWidth()));
 		Optional<Vec3> optionalSafeLocation = target.level().findFreePosition(target, tolerance, desiredLocation, target.getBbWidth(), target.getBbHeight(), target.getBbWidth());
+
+		optionalSafeLocation = optionalSafeLocation.map(vec3 -> vec3.add(0, -target.getBbHeight() / 2, 0));
+
+		// now i get to throw you DOWN on the GROUND
+//		optionalSafeLocation = optionalSafeLocation.map(vec3 -> {
+//			BlockHitResult downResult = target.level().clip(new ClipContext(vec3, vec3.relative(Direction.DOWN, leap), ClipContext.Block.COLLIDER, ClipContext.Fluid.ANY, target));
+//			return downResult.getLocation();
+//		});
 
 		return optionalSafeLocation;
 //		optionalSafeLocation.ifPresent(safelyBehind -> {
