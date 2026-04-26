@@ -2,10 +2,12 @@ package ink.quietly.archery_gimmicks.basics;
 
 import com.mojang.serialization.MapCodec;
 import ink.quietly.archery_gimmicks.ArcheryGimmicks;
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -14,7 +16,9 @@ import org.jspecify.annotations.NonNull;
 import java.util.function.Function;
 
 public class MoteCatalog {
+	// hey wait there's a FabricParticleTypes.complex(...) too...
 	public static final ParticleType<ColorParticleOption> SIGNAL_PARTICLE = register("signal", false, ColorParticleOption::codec, ColorParticleOption::streamCodec);
+	public static final SimpleParticleType QUICKSTEP_TRACE = register("quickstep_trace", FabricParticleTypes.simple());
 
 	public static void peruse() {
 
