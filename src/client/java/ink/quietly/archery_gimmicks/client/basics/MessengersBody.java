@@ -26,7 +26,7 @@ public class MessengersBody {
 //					double dd = 10.0;
 					player.level().addParticle(MoteCatalog.QUICKSTEP_TRACE, player.getRandomX(0.5)/* - xa * dd*/, player.getRandomY()/* - ya * dd*/, player.getRandomZ(0.5) /*- za * dd*/, 0/*xa*/, 0/*ya*/, 0/*za*/);
 				}
-				player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), Soundscape.QUICKSTEP, SoundSource.PLAYERS, 2f, 1.5f, false);
+				player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), Soundscape.QUICKSTEP, SoundSource.PLAYERS, 2f, 1f, false);
 			}
 		});
 	}

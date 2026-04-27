@@ -5,7 +5,7 @@
 
 # Archery Gimmicks
 
-Adds a small handful of gimmick arrows, as well as a couple basic bow variants.
+Adds a small handful of gimmick arrows, as well as a couple basic bow variants and a bow enchantment.
 
 The gimmick arrows:
 - Weighted Arrow - A heavy (high gravity) arrow that launches slightly slower.. 
@@ -21,6 +21,8 @@ The extras:
 - Light Bow - A variant of the bow that draws four times faster, but only reaches half the power.
 - Heavy Bow - A variant of the bow that reaches twice the power, but takes twice as long to draw.
   Can be dyed like leather armor.
+- Quickstep - A bow enchantment that lets you quickly retreat when you swing the bow (attack/left mouse button).
+  *\*teleports behind you\* Nothing personnel, kid.*
 
 ---
 
