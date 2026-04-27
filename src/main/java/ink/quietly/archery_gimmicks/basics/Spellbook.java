@@ -23,10 +23,13 @@ import org.apache.commons.lang3.mutable.MutableFloat;
 
 import java.util.Optional;
 import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
 import static net.minecraft.world.item.enchantment.EnchantmentHelper.runIterationOnItem;
 
+// it's a mess in here. uhh.. *teleports away* [unintelligible distant shout]
 public class Spellbook {
+	public static final Pattern TEPELORTS_U = Pattern.compile(".*teleports? behind (yo)?u.*");
 	public static final DataComponentType<EnchantmentValueEffect> QUICKSTEP_POWER = register(
 		"quickstep_power", b -> b.persistent(EnchantmentValueEffect.CODEC)
 	);

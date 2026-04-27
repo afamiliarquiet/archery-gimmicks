@@ -38,7 +38,7 @@ public class SecondaryUseMinecraftMixin {
 	private void thisTooIsUse(CallbackInfoReturnable<Boolean> cir, @Local(name = "heldItem") ItemStack heldItem) {
 		if (this.player != null && player.onGround() && EnchantmentHelper.has(heldItem, Spellbook.QUICKSTEP_POWER)) {
 			Optional<Vec3> targetPos = Spellbook.quickstep(this.player);
-			ClientPlayNetworking.send(new C2SFaithPayload(targetPos));
+			ClientPlayNetworking.send(new C2SFaithPayload(targetPos, Optional.empty()));
 		}
 	}
 }

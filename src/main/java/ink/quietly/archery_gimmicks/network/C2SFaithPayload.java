@@ -18,11 +18,12 @@ import org.jspecify.annotations.NonNull;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public record C2SFaithPayload(Optional<Vec3> position) implements CustomPacketPayload {
+public record C2SFaithPayload(Optional<Vec3> position, Optional<Float> yRot) implements CustomPacketPayload {
 	public static final Identifier FAITH_ID = ArcheryGimmicks.id("faith");
 	public static final CustomPacketPayload.Type<C2SFaithPayload> TYPE = new CustomPacketPayload.Type<>(FAITH_ID);
 	public static final StreamCodec<ByteBuf, C2SFaithPayload> CODEC = StreamCodec.composite(
 		ByteBufCodecs.optional(Vec3.STREAM_CODEC), C2SFaithPayload::position,
+		ByteBufCodecs.optional(ByteBufCodecs.FLOAT), C2SFaithPayload::yRot,
 		C2SFaithPayload::new
 	);
 
@@ -43,24 +44,34 @@ public record C2SFaithPayload(Optional<Vec3> position) implements CustomPacketPa
 //		MutableFloat mPower = new MutableFloat(0.0F);
 //		runIterationOnItem(item, (enchantment, level) ->
 //			enchantment.value().modifyUnfilteredValue(Spellbook.QUICKSTEP_POWER, player.getRandom(), level, mPower));
-		float generousPower = Spellbook.getQuickstepPower(player) + 1f;
-
-		if (player.onGround() && EnchantmentHelper.has(item, Spellbook.QUICKSTEP_POWER)) {
-			if (pos.distanceToSqr(player.position()) < generousPower * generousPower) {
-				S2CVanishPayload vanish = new S2CVanishPayload(player.getId());
-				AtomicBoolean sentToPlayer = new AtomicBoolean(false);
-				PlayerLookup.tracking(player).forEach(tracker -> {
-					ServerPlayNetworking.send(tracker, vanish);
-					if (tracker == player) {
-						sentToPlayer.set(true);
-					}
-				});
-				if (!sentToPlayer.get()) {
-					ServerPlayNetworking.send(player, vanish);
-				}
-				// go my packets. the race is on
-				player.teleportTo(pos.x, pos.y, pos.z);
+		boolean belief = false;
+		if (EnchantmentHelper.has(item, Spellbook.QUICKSTEP_POWER)) {
+			float generousPower = Spellbook.getQuickstepPower(player) + 1f;
+			if (player.onGround() && pos.distanceToSqr(player.position()) < generousPower * generousPower) {
+				belief = true;
 			}
+		} else if (ArcheryGimmicks.CONFIG.sillyMode) {
+			double generousRange = player.entityInteractionRange() + 3;
+			if (pos.distanceToSqr(player.position()) < generousRange * generousRange) {
+				belief = true;
+			}
+		}
+
+		if (belief) {
+			S2CVanishPayload vanish = new S2CVanishPayload(player.getId());
+			AtomicBoolean sentToPlayer = new AtomicBoolean(false);
+			PlayerLookup.tracking(player).forEach(tracker -> {
+				ServerPlayNetworking.send(tracker, vanish);
+				if (tracker == player) {
+					sentToPlayer.set(true);
+				}
+			});
+			if (!sentToPlayer.get()) {
+				ServerPlayNetworking.send(player, vanish);
+			}
+			// go my packets. the race is on
+			player.teleportTo(pos.x, pos.y, pos.z);
+			payload.yRot.ifPresent(aFloat -> player.forceSetRotation(aFloat, false, 0, false));
 		}
 	}
 }
