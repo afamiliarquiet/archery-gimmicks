@@ -2,10 +2,13 @@ package ink.quietly.archery_gimmicks.mixin;
 
 import ink.quietly.archery_gimmicks.entity.AlteredArrow;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.phys.EntityHitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Slice;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractArrow.class)
 public class AlteredAbstractArrowMixin {
@@ -31,6 +34,20 @@ public class AlteredAbstractArrowMixin {
 			return aarrow.getAirInertia();
 		} else {
 			return inertia;
+		}
+	}
+
+	// wow. i never really appreciated until now how convenient mixin can be.
+	// i could copy paste the whole code block and find each of the discards myself and replace em for tntarrow
+	// or... i make a beautifully elegant @At(INVOKE) that also allows other arrows to get involved. splendid.
+	@Inject(
+		method = "onHitEntity",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/arrow/AbstractArrow;discard()V"),
+		slice = @Slice(to = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/arrow/AbstractArrow;spawnAtLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;F)Lnet/minecraft/world/entity/item/ItemEntity;"))
+	)
+	private void somethingOminousLiesInWait(EntityHitResult hitResult, CallbackInfo ci) {
+		if (this instanceof AlteredArrow aarrow) {
+			aarrow.beforeEntityHitDiscard(hitResult);
 		}
 	}
 }

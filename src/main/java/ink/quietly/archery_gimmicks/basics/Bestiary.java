@@ -1,10 +1,7 @@
 package ink.quietly.archery_gimmicks.basics;
 
 import ink.quietly.archery_gimmicks.ArcheryGimmicks;
-import ink.quietly.archery_gimmicks.entity.BiggerArrow;
-import ink.quietly.archery_gimmicks.entity.MessengerArrow;
-import ink.quietly.archery_gimmicks.entity.WeightedArrow;
-import ink.quietly.archery_gimmicks.entity.SignalArrow;
+import ink.quietly.archery_gimmicks.entity.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -31,6 +28,14 @@ public class Bestiary {
 	);
 
 	public static final EntityType<MessengerArrow> MESSENGER_ARROW = note("messenger_arrow", EntityType.Builder.<MessengerArrow>of(MessengerArrow::new, MobCategory.MISC)
+		.noLootTable()
+		.sized(0.5F, 0.5F)
+		.eyeHeight(0.13F)
+		.clientTrackingRange(4)
+		.updateInterval(20)
+	);
+
+	public static final EntityType<TNTArrow> TNT_ARROW = note("tnt_arrow", EntityType.Builder.<TNTArrow>of(TNTArrow::new, MobCategory.MISC)
 		.noLootTable()
 		.sized(0.5F, 0.5F)
 		.eyeHeight(0.13F)

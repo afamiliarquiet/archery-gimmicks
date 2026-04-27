@@ -65,6 +65,7 @@ public class ArcheryGimmicksDataGenerator implements DataGeneratorEntrypoint {
 //			g.generateFlatItem(ItemBag.SIGNAL_ARROW, ModelTemplates.FLAT_ITEM);
 			g.generateTwoLayerDyedItem(ItemBag.SIGNAL_ARROW);
 			g.generateFlatItem(ItemBag.MESSENGER_ARROW, ModelTemplates.FLAT_ITEM);
+			g.generateFlatItem(ItemBag.TNT_ARROW, ModelTemplates.FLAT_ITEM);
 			this.generateBow(g, ItemBag.LIGHT_BOW, 0.2f, 0.6f, 1f);
 			// heavy bow is manual now because i don't want to deal with datagen for a dyed bow
 //			this.generateBow(g, ItemBag.HEAVY_BOW, 0.025f, 0.65f, 0.95f);
@@ -153,6 +154,13 @@ public class ArcheryGimmicksDataGenerator implements DataGeneratorEntrypoint {
 						.unlockedBy(getHasName(ItemBag.MESSENGER_ARROW), has(ItemBag.MESSENGER_ARROW))
 						.unlockedBy(getHasName(Items.ARROW), has(Items.ARROW))
 						.unlockedBy(getHasName(Items.BUNDLE), has(Items.BUNDLE))
+						.save(output);
+					shapeless(RecipeCategory.COMBAT, ItemBag.TNT_ARROW, 1)
+						.requires(Items.TNT)
+						.requires(Items.ARROW)
+						.unlockedBy(getHasName(ItemBag.TNT_ARROW), has(ItemBag.TNT_ARROW))
+						.unlockedBy(getHasName(Items.ARROW), has(Items.ARROW))
+						.unlockedBy(getHasName(Items.TNT), has(Items.TNT))
 						.save(output);
 
 //					CustomCraftingRecipeBuilder.customCrafting(

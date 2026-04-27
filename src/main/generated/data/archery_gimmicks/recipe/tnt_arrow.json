@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:tnt",
+    "minecraft:arrow"
+  ],
+  "result": {
+    "id": "archery_gimmicks:tnt_arrow"
+  }
+}

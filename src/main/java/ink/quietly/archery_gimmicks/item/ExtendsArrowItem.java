@@ -1,4 +1,4 @@
-package ink.quietly.archery_gimmicks.entity;
+package ink.quietly.archery_gimmicks.item;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;

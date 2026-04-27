@@ -16,6 +16,9 @@ The gimmick arrows:
   Can be dyed like leather armor.
 - Messenger Arrow - An arrow with a note attached to it, which can be filled just like a bundle.
   If it hits an entity, it'll bounce right off! Still hurts, though.
+- Arrow with TNT - The classic bomb-on-a-stick. Got a problem with a few floating blocks out of reach?
+  Not anymore. Requires a strong (fast) impact to detonate, with explosion power scaling with that strength.
+  Don't expect too much, though - the explosion will be weaker than plain ol' TNT at any reasonable speed.
 
 The extras:
 - Light Bow - A variant of the bow that draws four times faster, but only reaches half the power.

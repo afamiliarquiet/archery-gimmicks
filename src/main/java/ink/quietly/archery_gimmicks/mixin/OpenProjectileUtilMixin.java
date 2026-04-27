@@ -2,7 +2,7 @@ package ink.quietly.archery_gimmicks.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import ink.quietly.archery_gimmicks.entity.ExtendsArrowItem;
+import ink.quietly.archery_gimmicks.item.ExtendsArrowItem;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
