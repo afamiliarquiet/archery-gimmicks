@@ -19,6 +19,9 @@ The gimmick arrows:
 - Arrow with TNT - The classic bomb-on-a-stick. Got a problem with a few floating blocks out of reach?
   Not anymore. Requires a strong (fast) impact to detonate, with explosion power scaling with that strength.
   Don't expect too much, though - the explosion will be weaker than plain ol' TNT at any reasonable speed.
+- Enchanted Arrow - An old and mossy arrow found in dungeons and stronghold corridors.
+  It doesn't appear to be anything special, but it's certainly connected to something powerful...
+  Be careful when shooting these. Watch for falling rocks, and such.
 
 The extras:
 - Light Bow - A variant of the bow that draws four times faster, but only reaches half the power.
@@ -26,6 +29,9 @@ The extras:
   Can be dyed like leather armor.
 - Quickstep - A bow enchantment that lets you quickly retreat when you swing the bow (attack/left mouse button).
   *\*teleports behind you\* Nothing personnel, kid.*
+
+If you're a server owner, there are a few things you can tweak in the config at `<minecraft>/config/archery_gimmicks.toml`.
+You can also use [QoMC](https://modrinth.com/mod/qomc) to change the config with commands, or any other Kaleido Config accessory.
 
 ---
 

@@ -1,7 +1,12 @@
 package ink.quietly.archery_gimmicks.basics;
 
 import ink.quietly.archery_gimmicks.ArcheryGimmicks;
-import ink.quietly.archery_gimmicks.entity.*;
+import ink.quietly.archery_gimmicks.entity.AncientArrow;
+import ink.quietly.archery_gimmicks.entity.EnchantedArrow;
+import ink.quietly.archery_gimmicks.entity.MessengerArrow;
+import ink.quietly.archery_gimmicks.entity.SignalArrow;
+import ink.quietly.archery_gimmicks.entity.TNTArrow;
+import ink.quietly.archery_gimmicks.entity.WeightedArrow;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -43,9 +48,17 @@ public class Bestiary {
 		.updateInterval(20)
 	);
 
-	public static final EntityType<BiggerArrow> BIGGER_ARROW = note("bigger_arrow", EntityType.Builder.<BiggerArrow>of(BiggerArrow::new, MobCategory.MISC)
+	public static final EntityType<EnchantedArrow> ENCHANTED_ARROW = note("enchanted_arrow", EntityType.Builder.<EnchantedArrow>of(EnchantedArrow::new, MobCategory.MISC)
 		.noLootTable()
-		.sized(16f, 16f)
+		.sized(0.5F, 0.5F)
+		.eyeHeight(0.13F)
+		.clientTrackingRange(4)
+		.updateInterval(20)
+	);
+
+	public static final EntityType<AncientArrow> ANCIENT_ARROW = note("ancient_arrow", EntityType.Builder.<AncientArrow>of(AncientArrow::new, MobCategory.MISC)
+		.noLootTable()
+		.sized(8f, 8f)
 		.eyeHeight(0f)
 		.clientTrackingRange(32)
 		.updateInterval(20)

@@ -1,5 +1,6 @@
 package ink.quietly.archery_gimmicks.entity;
 
+import ink.quietly.archery_gimmicks.basics.Bestiary;
 import ink.quietly.archery_gimmicks.mixin.AbstractArrowAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -15,29 +16,38 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
 
 // and if that don't work, use more arrow
-public class BiggerArrow extends AbstractArrow {
-	public BiggerArrow(EntityType<? extends BiggerArrow> type, Level level) {
+public class AncientArrow extends AbstractArrow implements AlteredArrow {
+	public AncientArrow(EntityType<? extends AncientArrow> type, Level level) {
 		super(type, level);
+		setBaseDamage(getDefaultBaseDamage());
 	}
 
-//	public BiggerArrow(final Level level, final LivingEntity owner, final ItemStack pickupItemStack, @Nullable final ItemStack firedFromWeapon) {
-//		super(Bestiary.BIGGER_ARROW, owner, level, pickupItemStack, firedFromWeapon);
-//	}
-//
-//	public BiggerArrow(
-//		final Level level, final double x, final double y, final double z, final ItemStack pickupItemStack, @Nullable final ItemStack firedFromWeapon
-//	) {
-//		super(Bestiary.BIGGER_ARROW, x, y, z, level, pickupItemStack, firedFromWeapon);
-//	}
+	public AncientArrow(final Level level, final LivingEntity owner, final ItemStack pickupItemStack, @Nullable final ItemStack firedFromWeapon) {
+		super(Bestiary.ANCIENT_ARROW, owner, level, pickupItemStack, firedFromWeapon);
+		setBaseDamage(getDefaultBaseDamage());
+	}
+
+	public AncientArrow(
+		final Level level, final double x, final double y, final double z, final ItemStack pickupItemStack, @Nullable final ItemStack firedFromWeapon
+	) {
+		super(Bestiary.ANCIENT_ARROW, x, y, z, level, pickupItemStack, firedFromWeapon);
+		setBaseDamage(getDefaultBaseDamage());
+	}
 
 	@Override
 	protected @NonNull ItemStack getDefaultPickupItem() {
 		return Items.ARROW.getDefaultInstance();
+	}
+
+	@Override
+	public float getDefaultBaseDamage() {
+		return 10;
 	}
 
 	@Override
@@ -54,9 +64,20 @@ public class BiggerArrow extends AbstractArrow {
 		}
 	}
 
+	// no grav/'inertia' to make it easier to spawn far away and hit a target
+	@Override
+	public float getAirInertia() {
+		return 1;
+	}
+
 	@Override
 	protected float getWaterInertia() {
-		return 0.99f;
+		return 1f;
+	}
+
+	@Override
+	protected double getDefaultGravity() {
+		return 0.0;
 	}
 
 	@Override
