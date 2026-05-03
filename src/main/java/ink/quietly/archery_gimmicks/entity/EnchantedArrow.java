@@ -12,6 +12,8 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -19,6 +21,9 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class EnchantedArrow extends AbstractArrow implements AlteredArrow {
+	/// enchanted arrows can only summon an ancient arrow once. this flips to true once it has summoned one.
+	private boolean heavensFallingDown = false;
+
 	public EnchantedArrow(EntityType<? extends EnchantedArrow> type, Level level) {
 		super(type, level);
 	}
@@ -61,7 +66,8 @@ public class EnchantedArrow extends AbstractArrow implements AlteredArrow {
 	}
 
 	public void callDownTheHeavens() {
-		if (this.level() instanceof ServerLevel serverLevel) {
+		if (!heavensFallingDown && this.level() instanceof ServerLevel serverLevel) {
+			heavensFallingDown = true;
 			// whether to \ or /
 //			int slant = serverLevel.getRandom().nextBoolean() ? -1 : 1;
 //			for (int i = -1; i <= 1; i ++) {
@@ -89,5 +95,17 @@ public class EnchantedArrow extends AbstractArrow implements AlteredArrow {
 				);
 //			}
 		}
+	}
+
+	@Override
+	protected void addAdditionalSaveData(@NonNull ValueOutput output) {
+		super.addAdditionalSaveData(output);
+		output.putBoolean("heavensFallingDown", heavensFallingDown);
+	}
+
+	@Override
+	protected void readAdditionalSaveData(@NonNull ValueInput input) {
+		super.readAdditionalSaveData(input);
+		heavensFallingDown = input.getBooleanOr("heavensFallingDown", false); // remade in heaven
 	}
 }
