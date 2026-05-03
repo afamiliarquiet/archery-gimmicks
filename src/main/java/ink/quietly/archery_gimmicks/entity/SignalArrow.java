@@ -22,9 +22,9 @@ import org.jspecify.annotations.Nullable;
 public class SignalArrow extends AbstractArrow implements AlteredArrow {
 	public static final int DEFAULT_COLOR = -855683840;
 	private static final EntityDataAccessor<Boolean> SIGNAL_ACTIVE = SynchedEntityData.defineId(SignalArrow.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> SIGNAL_USED = SynchedEntityData.defineId(SignalArrow.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(SignalArrow.class, EntityDataSerializers.INT);
-	/// remains true even after signal is no longer active. only burns once
-	protected boolean signalStarted = false;
+//	protected boolean signalStarted = false;
 	protected short remainingActiveTicks = -1;
 	private boolean rushOrder = false; // not serialized. doesn't really matter
 
@@ -65,7 +65,7 @@ public class SignalArrow extends AbstractArrow implements AlteredArrow {
 		// not entirely true actually. if client loads it late, things would prob get weird.
 		// ok! server only you go, then.
 		if (!level().isClientSide()) {
-			if (signalStarted) {
+			if (isSignalUsed()) {
 				if (isSignalActive()) {
 					remainingActiveTicks--;
 					if (remainingActiveTicks == 0 || isInGround()) { // inground check mostly because it'd be annoying otherwise
@@ -74,7 +74,7 @@ public class SignalArrow extends AbstractArrow implements AlteredArrow {
 				}
 			} else if (this.tickCount > 40 && this.getDeltaMovement().y < 0) {
 				setSignalActive(true);
-				this.signalStarted = true;
+				setSignalUsed(true);
 				this.remainingActiveTicks = 1200; // one minute?
 				this.pickup = Pickup.DISALLOWED; // burnt out. nothin left
 			}
@@ -102,7 +102,7 @@ public class SignalArrow extends AbstractArrow implements AlteredArrow {
 
 	@Override
 	public float getAirInertia() {
-		return isSignalActive() ? 0.2f : this.signalStarted ? 0.8f : 0.97f; // in the industry they call this a "parachute", whatever that means
+		return isSignalActive() ? 0.2f : isSignalUsed() ? 0.85f : 0.97f; // in the industry they call this a "parachute", whatever that means
 	}
 
 	@Override
@@ -123,6 +123,14 @@ public class SignalArrow extends AbstractArrow implements AlteredArrow {
 		entityData.set(SIGNAL_ACTIVE, active);
 	}
 
+	public boolean isSignalUsed() {
+		return entityData.get(SIGNAL_USED);
+	}
+
+	protected void setSignalUsed(boolean used) {
+		entityData.set(SIGNAL_USED, used);
+	}
+
 	public int getColor() {
 		return entityData.get(COLOR);
 	}
@@ -135,13 +143,14 @@ public class SignalArrow extends AbstractArrow implements AlteredArrow {
 	protected void defineSynchedData(SynchedEntityData.@NonNull Builder builder) {
 		super.defineSynchedData(builder);
 		builder.define(SIGNAL_ACTIVE, false);
+		builder.define(SIGNAL_USED, false);
 		builder.define(COLOR, DEFAULT_COLOR);
 	}
 
 	@Override
 	protected void addAdditionalSaveData(@NonNull ValueOutput output) {
 		super.addAdditionalSaveData(output);
-		output.putBoolean("signalStarted", signalStarted);
+		output.putBoolean("signalStarted", isSignalUsed());
 		output.putShort("remainingSignalTicks", remainingActiveTicks); // ohhh.. that's what the s data type is in entity data
 		output.putInt("signalColor", getColor());
 	}
@@ -149,9 +158,9 @@ public class SignalArrow extends AbstractArrow implements AlteredArrow {
 	@Override
 	protected void readAdditionalSaveData(@NonNull ValueInput input) {
 		super.readAdditionalSaveData(input);
-		signalStarted = input.getBooleanOr("signalStarted", false); // Careful! Dynamo has Refresher!!!!
+		setSignalUsed(input.getBooleanOr("signalStarted", false)); // Careful! Dynamo has Refresher!!!!
 		remainingActiveTicks = (short) input.getShortOr("remainingSignalTicks", (short) -1); // it's getting cast either way.. why. damned if i int, damned if i short
-		setSignalActive(signalStarted && remainingActiveTicks > 0);
+		setSignalActive(isSignalUsed() && remainingActiveTicks > 0);
 		setColor(input.getIntOr("signalColor", DEFAULT_COLOR));
 	}
 }
