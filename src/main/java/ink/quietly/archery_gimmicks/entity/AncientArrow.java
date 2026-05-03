@@ -2,6 +2,7 @@ package ink.quietly.archery_gimmicks.entity;
 
 import ink.quietly.archery_gimmicks.basics.Bestiary;
 import ink.quietly.archery_gimmicks.mixin.AbstractArrowAccessor;
+import net.minecraft.core.SectionPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -23,21 +24,31 @@ import java.util.List;
 
 // and if that don't work, use more arrow
 public class AncientArrow extends AbstractArrow implements AlteredArrow {
+	private long ticketTimer = 0;
+
 	public AncientArrow(EntityType<? extends AncientArrow> type, Level level) {
 		super(type, level);
-		setBaseDamage(getDefaultBaseDamage());
+		postConstruction();
 	}
 
 	public AncientArrow(final Level level, final LivingEntity owner, final ItemStack pickupItemStack, @Nullable final ItemStack firedFromWeapon) {
 		super(Bestiary.ANCIENT_ARROW, owner, level, pickupItemStack, firedFromWeapon);
-		setBaseDamage(getDefaultBaseDamage());
+		postConstruction();
 	}
 
 	public AncientArrow(
 		final Level level, final double x, final double y, final double z, final ItemStack pickupItemStack, @Nullable final ItemStack firedFromWeapon
 	) {
 		super(Bestiary.ANCIENT_ARROW, x, y, z, level, pickupItemStack, firedFromWeapon);
+		postConstruction();
+	}
+
+	private void postConstruction() {
 		setBaseDamage(getDefaultBaseDamage());
+		if (this.level() instanceof ServerLevel serverLevel) {
+			serverLevel.getChunkSource().addTicketAndLoadWithRadius(Bestiary.ANCIENT_TICKET, this.chunkPosition(), 2);
+			this.ticketTimer = Bestiary.ANCIENT_TICKET.timeout();
+		}
 	}
 
 	@Override
@@ -96,10 +107,21 @@ public class AncientArrow extends AbstractArrow implements AlteredArrow {
 
 	@Override
 	public void tick() {
+		int prevChunkX = SectionPos.blockToSectionCoord(this.position().x());
+		int prevChunkZ = SectionPos.blockToSectionCoord(this.position().z());
 		if (!this.isInGround()) {
 			hitThemAll();
 		}
 		super.tick();
+		if (this.level() instanceof ServerLevel serverLevel && this.isAlive() && !this.isInGround()) {
+			if (--this.ticketTimer <= 0
+				|| prevChunkX != SectionPos.blockToSectionCoord(this.position().x())
+				|| prevChunkZ != SectionPos.blockToSectionCoord(this.position().z())
+			) {
+				serverLevel.getChunkSource().addTicketWithRadius(Bestiary.ANCIENT_TICKET, this.chunkPosition(), 2);
+				this.ticketTimer = Bestiary.ANCIENT_TICKET.timeout();
+			}
+		}
 	}
 
 	private void hitThemAll() {
