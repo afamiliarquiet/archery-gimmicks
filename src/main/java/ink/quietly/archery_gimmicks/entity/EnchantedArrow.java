@@ -77,7 +77,7 @@ public class EnchantedArrow extends AbstractArrow implements AlteredArrow {
 					.add(0, ArcheryGimmicks.CONFIG.ancientArrowCallingHeight, 0);
 				Vec3 flightPath = target.subtract(startingPoint);
 
-				AncientArrow arrow = new AncientArrow(level(), startingPoint.x, startingPoint.y, startingPoint.z, this.getPickupItem(), this.getWeaponItem());
+				AncientArrow arrow = AncientArrow.sendFromTheHeavens(level(), startingPoint.x, startingPoint.y, startingPoint.z, this.getPickupItem(), this.getWeaponItem());
 				arrow.setOwner(this.getOwner());
 				arrow.pickup = Pickup.DISALLOWED;
 				Projectile.spawnProjectileUsingShoot(

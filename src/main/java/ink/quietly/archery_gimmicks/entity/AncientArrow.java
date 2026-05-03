@@ -3,6 +3,9 @@ package ink.quietly.archery_gimmicks.entity;
 import ink.quietly.archery_gimmicks.basics.Bestiary;
 import ink.quietly.archery_gimmicks.mixin.AbstractArrowAccessor;
 import net.minecraft.core.SectionPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -24,6 +27,7 @@ import java.util.List;
 
 // and if that don't work, use more arrow
 public class AncientArrow extends AbstractArrow implements AlteredArrow {
+	private static final EntityDataAccessor<Boolean> HEAVEN_SENT = SynchedEntityData.defineId(AncientArrow.class, EntityDataSerializers.BOOLEAN);
 	private long ticketTimer = 0;
 
 	public AncientArrow(EntityType<? extends AncientArrow> type, Level level) {
@@ -43,12 +47,44 @@ public class AncientArrow extends AbstractArrow implements AlteredArrow {
 		postConstruction();
 	}
 
+	private AncientArrow(
+		final double x, final double y, final double z, final Level level, final ItemStack pickupItemStack, @Nullable final ItemStack firedFromWeapon
+	) {
+		super(Bestiary.ANCIENT_ARROW, x, y, z, level, pickupItemStack, firedFromWeapon);
+		postConstruction();
+		setHeavenSent(true);
+	}
+
+	// being a little weird about it.
+	public static AncientArrow sendFromTheHeavens(final Level level, final double x, final double y, final double z, final ItemStack pickupItemStack, @Nullable final ItemStack firedFromWeapon) {
+		return new AncientArrow( x, y, z, level, pickupItemStack, firedFromWeapon);
+	}
+
 	private void postConstruction() {
 		setBaseDamage(getDefaultBaseDamage());
 		if (this.level() instanceof ServerLevel serverLevel) {
 			serverLevel.getChunkSource().addTicketAndLoadWithRadius(Bestiary.ANCIENT_TICKET, this.chunkPosition(), 2);
 			this.ticketTimer = Bestiary.ANCIENT_TICKET.timeout();
 		}
+	}
+
+	@Override
+	protected void defineSynchedData(SynchedEntityData.@NonNull Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(HEAVEN_SENT, false);
+	}
+
+	@Override
+	public void onSyncedDataUpdated(@NonNull List<SynchedEntityData.DataValue<?>> updatedItems) {
+		super.onSyncedDataUpdated(updatedItems);
+	}
+
+	public boolean isHeavenSent() {
+		return this.entityData.get(HEAVEN_SENT);
+	}
+
+	public void setHeavenSent(boolean newVal) {
+		this.entityData.set(HEAVEN_SENT, newVal);
 	}
 
 	@Override
@@ -78,17 +114,18 @@ public class AncientArrow extends AbstractArrow implements AlteredArrow {
 	// no grav/'inertia' to make it easier to spawn far away and hit a target
 	@Override
 	public float getAirInertia() {
-		return 1;
+		return isHeavenSent() ? 1f : 0.99f;
 	}
 
 	@Override
 	protected float getWaterInertia() {
-		return 1f;
+		return isHeavenSent() ? 1f : 0.99f;
 	}
 
 	@Override
 	protected double getDefaultGravity() {
-		return 0.0;
+		// could totally optimize this out. not going to
+		return isHeavenSent() ? 0.0 : super.getDefaultGravity() * 3;
 	}
 
 	@Override
@@ -96,6 +133,8 @@ public class AncientArrow extends AbstractArrow implements AlteredArrow {
 		super.onHitBlock(hitResult);
 		if (this.level().isClientSide()) {
 			// todo - explodey particles probably. beware of render dist?
+		} else {
+			setHeavenSent(false);
 		}
 	}
 
