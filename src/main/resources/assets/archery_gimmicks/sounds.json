@@ -7,5 +7,46 @@
 			"minecraft:mob/breeze/slide4"
 		],
 		"subtitle": "subtitles.archery_gimmicks.entity.player.quickstep"
+	},
+	"entity.enchanted_arrow.hit_extra": {
+		"sounds": [
+			"minecraft:block/creaking_heart/fall/creaking_heart_fall"
+		],
+		"subtitle": "subtitles.archery_gimmicks.entity.enchanted_arrow.hit_extra"
+	},
+	"entity.ancient_arrow.call_down": {
+		"sounds": [
+			"minecraft:mob/breeze/inhale1",
+			{
+				"name": "minecraft:mob/breeze/inhale1",
+				"pitch": 1.1
+			},
+			"minecraft:mob/breeze/inhale2",
+			{
+				"name": "minecraft:mob/breeze/inhale2",
+				"pitch": 1.1
+			}
+		],
+		"subtitle": "subtitles.archery_gimmicks.entity.ancient_arrow.call_down"
+	},
+	"entity.ancient_arrow.hit_extra": {
+		"sounds": [
+			"minecraft:mob/creaking/creaking_death"
+		],
+		"subtitle": "subtitles.archery_gimmicks.entity.ancient_arrow.hit_extra"
+	},
+	"entity.ancient_arrow.impact_reverberation": {
+		"sounds": [
+			"minecraft:mob/breeze/shoot",
+			{
+				"name": "minecraft:mob/breeze/shoot",
+				"pitch": 1.1
+			},
+			{
+				"name": "minecraft:mob/breeze/shoot",
+				"pitch": 1.2
+			}
+		],
+		"subtitle": "subtitles.archery_gimmicks.entity.ancient_arrow.impact_reverberation"
 	}
 }

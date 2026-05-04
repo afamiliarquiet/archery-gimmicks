@@ -19,6 +19,7 @@ public class MoteCatalog {
 	// hey wait there's a FabricParticleTypes.complex(...) too...
 	public static final ParticleType<ColorParticleOption> SIGNAL_PARTICLE = register("signal", false, ColorParticleOption::codec, ColorParticleOption::streamCodec);
 	public static final SimpleParticleType QUICKSTEP_TRACE = register("quickstep_trace", FabricParticleTypes.simple());
+	public static final SimpleParticleType SMOKE_CLOUD = register("smoke_cloud", FabricParticleTypes.simple());
 
 	public static void peruse() {
 

@@ -3,9 +3,10 @@ package ink.quietly.archery_gimmicks.entity;
 import ink.quietly.archery_gimmicks.ArcheryGimmicks;
 import ink.quietly.archery_gimmicks.basics.Bestiary;
 import ink.quietly.archery_gimmicks.basics.ItemBag;
+import ink.quietly.archery_gimmicks.basics.Soundscape;
 import ink.quietly.archery_gimmicks.mixin.AbstractArrowAccessor;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -78,7 +79,7 @@ public class EnchantedArrow extends AbstractArrow implements AlteredArrow {
 					.normalize()
 					.reverse()
 					.scale(ArcheryGimmicks.CONFIG.ancientArrowCallingRadius)
-					.with(Direction.Axis.Y, 0)
+//					.with(Direction.Axis.Y, 0)
 					.add(target)
 					.add(0, ArcheryGimmicks.CONFIG.ancientArrowCallingHeight, 0);
 				Vec3 flightPath = target.subtract(startingPoint);
@@ -93,6 +94,11 @@ public class EnchantedArrow extends AbstractArrow implements AlteredArrow {
 					flightPath.x, flightPath.y, flightPath.z,
 					ArcheryGimmicks.CONFIG.ancientArrowCallingPower, 0
 				);
+
+				serverLevel.playSeededSound(
+						null, this.getX(), this.getY(), this.getZ(), Soundscape.ANCIENT_CALLING, SoundSource.PLAYERS, 4F, 0.5F + this.random.nextFloat() * 0.1F, random.nextLong()
+					);
+				serverLevel.playSeededSound(null, position().x, position().y, position().z, Soundscape.ENCHANTED_ARROW_HIT, SoundSource.PLAYERS, 0.7f + random.nextFloat() * 0.1f, 0.9f + random.nextFloat() * 0.15f, random.nextLong());
 //			}
 		}
 	}

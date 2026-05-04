@@ -1,16 +1,21 @@
 package ink.quietly.archery_gimmicks.entity;
 
 import ink.quietly.archery_gimmicks.basics.Bestiary;
+import ink.quietly.archery_gimmicks.basics.MoteCatalog;
+import ink.quietly.archery_gimmicks.basics.Soundscape;
 import ink.quietly.archery_gimmicks.mixin.AbstractArrowAccessor;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileDeflection;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -130,12 +135,40 @@ public class AncientArrow extends AbstractArrow implements AlteredArrow {
 
 	@Override
 	protected void onHitBlock(@NonNull BlockHitResult hitResult) {
+		Vec3 reverseMovement = this.getDeltaMovement().reverse();
+		double mag = reverseMovement.length();
 		super.onHitBlock(hitResult);
 		if (this.level().isClientSide()) {
-			// todo - explodey particles probably. beware of render dist?
+			for (int i = 0; i < mag * 5; i++) {
+				Vec3 offset = reverseMovement.addLocalCoordinates(new Vec3(this.random.nextGaussian() * 0.3, this.random.nextGaussian() * 0.3, this.random.nextDouble() * (mag+3) / 5));
+				Vec3 spawnPos = this.position().add(offset);
+				level().addAlwaysVisibleParticle(MoteCatalog.SMOKE_CLOUD, true, spawnPos.x, spawnPos.y, spawnPos.z, offset.x, offset.y, offset.z);
+			}
+			for (int i = 0; i < mag * 5; i++) {
+				Vec3 offset = reverseMovement.addLocalCoordinates(new Vec3(this.random.nextGaussian() * 0.7, this.random.nextGaussian() * 0.7, this.random.nextDouble() * (mag+3) / 13));
+				Vec3 spawnPos = this.position().add(offset);
+				level().addAlwaysVisibleParticle(MoteCatalog.SMOKE_CLOUD, true, spawnPos.x, spawnPos.y, spawnPos.z, offset.x, offset.y, offset.z);
+			}
+
+			if (isHeavenSent()) {
+				this.level()
+					.playLocalSound(
+						this.getX(), this.getY(), this.getZ(), Soundscape.ANCIENT_REVERBERATION, SoundSource.PLAYERS, 64F, 0.5F + this.random.nextFloat() * 0.1F, false
+					);
+			}
+			this.level()
+				.playLocalSound(
+					this.getX(), this.getY(), this.getZ(), Soundscape.ANCIENT_ARROW_HIT, SoundSource.PLAYERS, 8F, 0.7F + this.random.nextFloat() * 0.3F, false
+				);
 		} else {
 			setHeavenSent(false);
 		}
+	}
+
+	@Override
+	public boolean deflect(@NonNull ProjectileDeflection deflection, @Nullable Entity deflectingEntity, @Nullable EntityReference<Entity> newOwner, boolean byAttack) {
+		setHeavenSent(false);
+		return super.deflect(deflection, deflectingEntity, newOwner, byAttack);
 	}
 
 	@Override
