@@ -15,6 +15,9 @@ public class GimmickConfig extends WrappedConfig {
 	@Comment("Finally, this controls the speed the ancient arrow is spawned with.")
 	public float ancientArrowCallingPower = 10;
 
+	@Comment("Time in ticks for ancient arrows to despawn. Default is 30 minutes in ticks, vanilla arrows despawn in 1 minute or 1200 ticks")
+	public int ancientArrowDespawnTime = 36000;
+
 	@Comment("Scales the default arrow render distance. 1 matches vanilla's arrow render distance")
 	@Comment("When using the Heavy Bow, it's very easy to lose track of your arrows, so this is raised by default.")
 	public float arrowRenderDistanceScale = 3;

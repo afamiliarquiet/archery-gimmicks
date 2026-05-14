@@ -1,5 +1,6 @@
 package ink.quietly.archery_gimmicks.entity;
 
+import ink.quietly.archery_gimmicks.ArcheryGimmicks;
 import ink.quietly.archery_gimmicks.basics.Bestiary;
 import ink.quietly.archery_gimmicks.basics.MoteCatalog;
 import ink.quietly.archery_gimmicks.basics.Soundscape;
@@ -111,7 +112,7 @@ public class AncientArrow extends AbstractArrow implements AlteredArrow {
 	protected void tickDespawn() {
 		int life = ((AbstractArrowAccessor)this).getLife() + 1;
 		((AbstractArrowAccessor)this).setLife(life);
-		if (life >= 36000) { // 30 minutes
+		if (life >= ArcheryGimmicks.CONFIG.ancientArrowDespawnTime) { // 30 minutes
 			this.discard();
 		}
 	}
