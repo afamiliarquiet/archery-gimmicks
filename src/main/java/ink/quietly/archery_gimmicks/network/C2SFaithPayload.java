@@ -47,7 +47,7 @@ public record C2SFaithPayload(Optional<Vec3> position, Optional<Float> yRot) imp
 		boolean belief = false;
 		if (EnchantmentHelper.has(item, Spellbook.QUICKSTEP_POWER)) {
 			float generousPower = Spellbook.getQuickstepPower(player) + 1f;
-			if (player.onGround() && pos.distanceToSqr(player.position()) < generousPower * generousPower) {
+			if (pos.distanceToSqr(player.position()) < generousPower * generousPower) {
 				belief = true;
 			}
 		} else if (ArcheryGimmicks.CONFIG.sillyMode) {
