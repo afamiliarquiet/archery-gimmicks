@@ -14,4 +14,8 @@ public class GimmickConfig extends WrappedConfig {
 	public float ancientArrowCallingHeight = 1000;
 	@Comment("Finally, this controls the speed the ancient arrow is spawned with.")
 	public float ancientArrowCallingPower = 10;
+
+	@Comment("Scales the default arrow render distance. 1 matches vanilla's arrow render distance")
+	@Comment("When using the Heavy Bow, it's very easy to lose track of your arrows, so this is raised by default.")
+	public float arrowRenderDistanceScale = 3;
 }

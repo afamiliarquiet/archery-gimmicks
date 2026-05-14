@@ -1,25 +1,26 @@
 {
-	"required": true,
-	"minVersion": "0.8",
-	"package": "ink.quietly.archery_gimmicks.mixin",
-	"compatibilityLevel": "JAVA_25",
-	"mixins": [
-		"AbstractArrowAccessor",
-		"AlteredAbstractArrowMixin",
-		"AlteredBowItemMixin",
-		"CauldronInteractionsMixin",
-		"OpenProjectileUtilMixin",
-		"OpenProjectileWeaponItemMixin",
-		"UltimateDoomDestinyCauldronInteractionDispatcherInvokerOfDestinedDoomAndDespairOhhhhhhMyGodIDontWantToMakeThisInvoker"
-	],
-	"client": [
-	],
-	"server": [
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"mixinextras": {
-		"minVersion": "0.5.3"
+  "required": true,
+  "minVersion": "0.8",
+  "package": "ink.quietly.archery_gimmicks.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "AbstractArrowAccessor",
+    "AlteredAbstractArrowMixin",
+    "AlteredBowItemMixin",
+    "ArrowRangeEntityTypeMixin",
+    "CauldronInteractionsMixin",
+    "OpenProjectileUtilMixin",
+    "OpenProjectileWeaponItemMixin",
+    "UltimateDoomDestinyCauldronInteractionDispatcherInvokerOfDestinedDoomAndDespairOhhhhhhMyGodIDontWantToMakeThisInvoker"
+  ],
+  "client": [
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixinextras": {
+    "minVersion": "0.5.3"
 	}
 }

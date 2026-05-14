@@ -1,0 +1,10 @@
+{
+	"replace": false,
+	"values": [
+		"archery_gimmicks:weighted_arrow",
+		"archery_gimmicks:signal_arrow",
+		"archery_gimmicks:messenger_arrow",
+		"archery_gimmicks:tnt_arrow",
+		"archery_gimmicks:enchanted_arrow"
+	]
+}

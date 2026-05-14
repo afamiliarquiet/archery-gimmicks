@@ -50,4 +50,17 @@ public class AlteredAbstractArrowMixin {
 			aarrow.beforeEntityHitDiscard(hitResult);
 		}
 	}
+
+	// hey so fun fact. this method is like, always returning a value way bigger than the actual cutoff.
+	// the clientTrackingRange on the EntityType is what gets you.
+//	@Definition(id = "size", local = @Local(type = double.class, name = "size"))
+//	@Expression("size * size")
+//	@ModifyExpressionValue(method = "shouldRenderAtSqrDistance", at = @At("MIXINEXTRAS:EXPRESSION"))
+//	private double scale(double original) {
+//		return original * ArcheryGimmicks.CONFIG.arrowRenderDistanceScale;
+//	}
+//	@ModifyConstant(method = "shouldRenderAtSqrDistance", constant = @Constant(doubleValue = 64))
+//	private double scale(double constant) {
+//		return constant * ArcheryGimmicks.CONFIG.arrowRenderDistanceScale;
+//	}
 }
