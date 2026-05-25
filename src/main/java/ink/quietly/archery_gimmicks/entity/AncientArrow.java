@@ -135,6 +135,11 @@ public class AncientArrow extends AbstractArrow implements AlteredArrow {
 	}
 
 	@Override
+	protected boolean isAffectedByBlocks() {
+		return false;
+	}
+
+	@Override
 	protected void onHitBlock(@NonNull BlockHitResult hitResult) {
 		Vec3 reverseMovement = this.getDeltaMovement().reverse();
 		double mag = reverseMovement.length();
