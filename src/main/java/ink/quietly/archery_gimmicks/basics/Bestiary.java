@@ -2,6 +2,8 @@ package ink.quietly.archery_gimmicks.basics;
 
 import ink.quietly.archery_gimmicks.ArcheryGimmicks;
 import ink.quietly.archery_gimmicks.entity.AncientArrow;
+import ink.quietly.archery_gimmicks.entity.BreadArrow;
+import ink.quietly.archery_gimmicks.entity.BugArrow;
 import ink.quietly.archery_gimmicks.entity.EnchantedArrow;
 import ink.quietly.archery_gimmicks.entity.MessengerArrow;
 import ink.quietly.archery_gimmicks.entity.SignalArrow;
@@ -60,6 +62,22 @@ public class Bestiary {
 	public static final EntityType<AncientArrow> ANCIENT_ARROW = note("ancient_arrow", EntityType.Builder.<AncientArrow>of(AncientArrow::new, MobCategory.MISC)
 		.noLootTable()
 		.sized(8f, 8f)
+		.eyeHeight(0f)
+		.clientTrackingRange(32)
+		.updateInterval(20)
+	);
+
+	public static final EntityType<AncientArrow> BREAD_ARROW = note("bread_arrow", EntityType.Builder.<AncientArrow>of(BreadArrow::new, MobCategory.MISC)
+		.noLootTable()
+		.sized(12f, 12f)
+		.eyeHeight(0f)
+		.clientTrackingRange(32)
+		.updateInterval(20)
+	);
+
+	public static final EntityType<AncientArrow> BUG_ARROW = note("bug_arrow", EntityType.Builder.<AncientArrow>of(BugArrow::new, MobCategory.MISC)
+		.noLootTable()
+		.sized(4f, 4f)
 		.eyeHeight(0f)
 		.clientTrackingRange(32)
 		.updateInterval(20)

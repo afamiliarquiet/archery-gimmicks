@@ -1,6 +1,8 @@
 package ink.quietly.archery_gimmicks.basics;
 
 import ink.quietly.archery_gimmicks.ArcheryGimmicks;
+import ink.quietly.archery_gimmicks.item.BreadArrowItem;
+import ink.quietly.archery_gimmicks.item.BugArrowItem;
 import ink.quietly.archery_gimmicks.item.EnchantedArrowItem;
 import ink.quietly.archery_gimmicks.item.HeavyBowItem;
 import ink.quietly.archery_gimmicks.item.LightBowItem;
@@ -15,6 +17,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -37,6 +40,8 @@ public class ItemBag {
 	public static final Item MESSENGER_ARROW = take("messenger_arrow", MessengerArrowItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
 	public static final Item TNT_ARROW = take("tnt_arrow", TNTArrowItem::new, new Item.Properties());
 	public static final Item ENCHANTED_ARROW = take("enchanted_arrow", EnchantedArrowItem::new, new Item.Properties().rarity(Rarity.UNCOMMON).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
+	public static final Item BREAD_ARROW = take("bread_arrow", BreadArrowItem::new, new Item.Properties().rarity(Rarity.UNCOMMON).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true).food(new FoodProperties.Builder().nutrition(10).saturationModifier(0.6F).build()));
+	public static final Item BUG_ARROW = take("bug_arrow", BugArrowItem::new, new Item.Properties().rarity(Rarity.EPIC).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
 
 	public static void fill() {
 		DispenserBlock.registerProjectileBehavior(WEIGHTED_ARROW);
@@ -44,6 +49,8 @@ public class ItemBag {
 		DispenserBlock.registerProjectileBehavior(MESSENGER_ARROW);
 		DispenserBlock.registerProjectileBehavior(TNT_ARROW);
 		DispenserBlock.registerProjectileBehavior(ENCHANTED_ARROW);
+		DispenserBlock.registerProjectileBehavior(BREAD_ARROW);
+		DispenserBlock.registerProjectileBehavior(BUG_ARROW);
 
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(itemGroup -> {
 			itemGroup.insertAfter(Items.SPECTRAL_ARROW, WEIGHTED_ARROW, SIGNAL_ARROW, MESSENGER_ARROW, TNT_ARROW, ENCHANTED_ARROW);

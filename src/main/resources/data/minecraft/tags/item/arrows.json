@@ -5,6 +5,8 @@
 		"archery_gimmicks:signal_arrow",
 		"archery_gimmicks:messenger_arrow",
 		"archery_gimmicks:tnt_arrow",
-		"archery_gimmicks:enchanted_arrow"
+		"archery_gimmicks:enchanted_arrow",
+		"archery_gimmicks:bread_arrow",
+		"archery_gimmicks:bug_arrow"
 	]
 }

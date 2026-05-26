@@ -18,7 +18,7 @@ import org.jspecify.annotations.NonNull;
 public class AncientArrowRenderer extends EntityRenderer<AncientArrow, ArrowRenderState> {
 	public static final Identifier ANCIENT_ARROW_LOCATION = ArcheryGimmicks.id("textures/entity/projectile/arrow_ancient.png");
 
-	private final ArrowModel model;
+	protected ArrowModel model;
 
 	public AncientArrowRenderer(EntityRendererProvider.Context context) {
 		super(context);

@@ -67,6 +67,8 @@ public class ArcheryGimmicksDataGenerator implements DataGeneratorEntrypoint {
 			g.generateFlatItem(ItemBag.MESSENGER_ARROW, ModelTemplates.FLAT_ITEM);
 			g.generateFlatItem(ItemBag.TNT_ARROW, ModelTemplates.FLAT_ITEM);
 			g.generateFlatItem(ItemBag.ENCHANTED_ARROW, ModelTemplates.FLAT_ITEM);
+//			g.generateFlatItem(ItemBag.BREAD_ARROW, ModelTemplates.FLAT_ITEM);
+			g.generateFlatItem(ItemBag.BUG_ARROW, ModelTemplates.FLAT_ITEM);
 			this.generateBow(g, ItemBag.LIGHT_BOW, 0.2f, 0.6f, 1f);
 			// heavy bow is manual now because i don't want to deal with datagen for a dyed bow
 //			this.generateBow(g, ItemBag.HEAVY_BOW, 0.025f, 0.65f, 0.95f);

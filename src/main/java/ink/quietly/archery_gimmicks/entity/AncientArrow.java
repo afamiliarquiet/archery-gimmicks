@@ -46,10 +46,22 @@ public class AncientArrow extends AbstractArrow implements AlteredArrow {
 		postConstruction();
 	}
 
+	public AncientArrow(EntityType<? extends AncientArrow> type, final Level level, final LivingEntity owner, final ItemStack pickupItemStack, @Nullable final ItemStack firedFromWeapon) {
+		super(type, owner, level, pickupItemStack, firedFromWeapon);
+		postConstruction();
+	}
+
 	public AncientArrow(
 		final Level level, final double x, final double y, final double z, final ItemStack pickupItemStack, @Nullable final ItemStack firedFromWeapon
 	) {
 		super(Bestiary.ANCIENT_ARROW, x, y, z, level, pickupItemStack, firedFromWeapon);
+		postConstruction();
+	}
+
+	public AncientArrow(
+		EntityType<? extends AncientArrow> type, final Level level, final double x, final double y, final double z, final ItemStack pickupItemStack, @Nullable final ItemStack firedFromWeapon
+	) {
+		super(type, x, y, z, level, pickupItemStack, firedFromWeapon);
 		postConstruction();
 	}
 
@@ -202,6 +214,10 @@ public class AncientArrow extends AbstractArrow implements AlteredArrow {
 		}
 	}
 
+	protected boolean ohhImSoScared() {
+		return true;
+	}
+
 	private void hitThemAll() {
 		// because the movement here isn't clipped by block collision it can hit things through blocks.
 		// this is okay it's a very big arrow
@@ -212,10 +228,11 @@ public class AncientArrow extends AbstractArrow implements AlteredArrow {
 				if (entity instanceof LivingEntity livingEntity) {
 					if (this.canHitEntity(livingEntity)) { // this is where the piercing ignore ids are checked
 						// ignoring things that are probably going to deflect.. because i don't want deflections to happen
-						if (livingEntity.isDeadOrDying()
+						// but only if im so scared
+						if (ohhImSoScared() && (livingEntity.isDeadOrDying()
 							|| livingEntity.getItemBlockingWith() != null
 							|| livingEntity.isInvulnerableTo(serverLevel, this.damageSources().arrow(this, null))
-							|| livingEntity instanceof Player player && player.getAbilities().invulnerable // why is this a separate thing..
+							|| livingEntity instanceof Player player && player.getAbilities().invulnerable) // why is this a separate thing..
 						) {
 							if (((AbstractArrowAccessor)this).getPiercingIgnoreEntityIds() != null) {
 								((AbstractArrowAccessor)this).getPiercingIgnoreEntityIds().add(livingEntity.getId());
